@@ -93,5 +93,5 @@ function onListening() {
   mongoConnect(() => console.log(`MongoDB is Connected Successfully...`));
   util.populateAdmin(() => console.log(`admin created...`));
   util.populateProduct(() => console.log(`product created...`));
-  
+  util.populateUsers(() => console.log(`Users created...`));
 }

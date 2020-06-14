@@ -30,11 +30,11 @@ const product = {
     'createdDate':{
         type: Date,
         default: Date.now
+    },
+    'userId': {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true
     }
-    // 'userId': {
-    //     type: String,
-    //     required: true
-    // }
 }
 
 const productSchema = new mongoose.Schema(product);
