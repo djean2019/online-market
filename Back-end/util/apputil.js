@@ -3,9 +3,9 @@
  *
  * App Utilities
  */
-const AdminModel = require('../model/admin').adminModel
-const ProductModel = require('../model/product').productModel
-const UserModel = require('../model/user').userModel
+const AdminModel = require('../models/admin-model').adminModel
+const ProductModel = require('../models/product-model').productModel
+const UserModel = require('../models/user-model').userModel
 const bcrypt = require('../util/bcrypt')
 
 module.exports = {
@@ -41,15 +41,22 @@ module.exports = {
         }
     },
     populateProduct: function (onComplete) {
-        let product = new ProductModel({ name: 'Book', price: 30, imageUrl: 'darphe@onlinemarket.com', description: 'description' })
-        ProductModel.exists({ name: product.name })
-            .then(res => {
-                if (res) {
-                    onComplete(`product Already available ${Date.now()}`)
-                } else {
-                    product.save()
-                    onComplete(`product created - ${Date.now()}`)
-                }
-            }).catch(err => onComplete(`product failed to create`))
+        let pro1 = new ProductModel({ name: 'Angular', price: 30, imageUrl: 'https://www.levelaccess.com/wp-content/uploads/2015/08/AngularJS_google.png', description: 'This is a nice book', userId:'5ee69514ecad5b6a3f7c4961' })
+        let pro2 = new ProductModel({ name: 'Node Js', price: 70, imageUrl: 'https://i.imgur.com/RHBW5y1.png', description: 'Server side lessons', userId:'5ee69514ecad5b6a3f7c4961' })
+        let pro3 = new ProductModel({ name: 'React Js', price: 50, imageUrl: 'https://www.valuecoders.com/common/images-2/reactjs-og.png', description: 'Nice reactive learning book',userId: '5ee69514ecad5b6a3f7c4962' })
+        let pro4 = new ProductModel({ name: 'Spring', price: 100, imageUrl: 'https://miro.medium.com/max/550/1*47DZV2oA3VWB-AaZOIT73w.png', description: 'A better way to improve your app', userId: '5ee69515ecad5b6a3f7c4963' })
+        let products = [];
+        products.push(pro1,pro2,pro3,pro4);
+        for(let product of products){
+            ProductModel.exists({ imageUrl: product.imageUrl })
+                .then(res => {
+                    if (res) {
+                        onComplete(`product ${product.imageUrl} Already available ${Date.now()}`)
+                    } else {
+                        product.save()
+                        onComplete(`product ${product.imageUrl} created - ${Date.now()}`)
+                    }
+                }).catch(err => onComplete(`product ${product.imageUrl} failed to create`))
+        }
     }
 }
