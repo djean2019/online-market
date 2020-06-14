@@ -83,7 +83,7 @@ function onError(error) {
 /**
  * Event listener for HTTP server "listening" event.
  */
-
+ 
 function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'
@@ -91,5 +91,7 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
   mongoConnect(() => console.log(`MongoDB is Connected Successfully...`));
-  util.populateAdmin(() => console.log(`admin created...`))
+  util.populateAdmin(() => console.log(`admin created...`));
+  util.populateProduct(() => console.log(`product created...`));
+  
 }
