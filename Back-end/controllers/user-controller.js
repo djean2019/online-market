@@ -1,4 +1,4 @@
-const User = require('../models/user-model');
+const User = require('../models/user-model').userModel;
 
 exports.insert = (req, res, next) => {
     User.create(req.body)

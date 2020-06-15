@@ -33,6 +33,7 @@ const user = {
         type: Date,
         default: Date.now
     },
+    'cart':[],
     role: {
         type: String,
         default: 'BUYER'
