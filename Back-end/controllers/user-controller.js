@@ -53,14 +53,3 @@ exports.removeById = (req, res, next) => {
         });
 };
 
-exports.getNoOfUsersInRole = (req, res, next) => {
-    User.aggregate([
-            { $group: { _id: "$role", sum_users: { $sum: 1 } } }
-        ])
-        .then(result => {
-            res.status(200).send(result);
-        })
-        .catch(err => {
-            res.status(500).send({ errMsg: err });
-        });
-};
