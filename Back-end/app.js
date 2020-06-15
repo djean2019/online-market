@@ -4,7 +4,7 @@ const cors = require('cors');
 // var path = require('path');
 
 const userRoutes = require('./routes/user-routes');
-const authRoutes = require('./routes/auth-route');
+const authRoutes = require('./routes/auth-routes');
 const auth = require('./util/jwt-auth');
 
 const app = express();
