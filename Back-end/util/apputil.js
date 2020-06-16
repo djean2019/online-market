@@ -22,12 +22,13 @@ module.exports = {
             }).catch(err => onComplete(`admin failed to create`))
     },
     populateUsers: function (onComplete) {
+        let admin = new UserModel({ fullname: 'Darphe H. J.', email: 'darphe@onlinemarket.com', password: bcrypt.encodeSync('1234567'), role:'ADMIN' })
         let user1 = new UserModel({ fullname: 'Joanne H. J.', email: 'joanne@onlinemarket.com', password: bcrypt.encodeSync('1234'), role:'SELLER' });
-        let user2 = new UserModel({ fullname: 'Caleb H. J.', email: 'caleb@onlinemarket.com', password: bcrypt.encodeSync('1234'), role:'SELLER' });
+        let user2 = new UserModel({ fullname: 'Caleb H. J.', email: 'caleb@onlinemarket.com', password: bcrypt.encodeSync('1234'), role:'BUYER' });
         let user3 = new UserModel({ fullname: 'Benssy H. J.', email: 'benssy@onlinemarket.com', password: bcrypt.encodeSync('1234'), role:'SELLER' });
         let user4 = new UserModel({ fullname: 'Blanco T.', email: 'blanco@onlinemarket.com', password: bcrypt.encodeSync('1234'), role:'SELLER' });
         let users =[];
-        users.push(user1,user2,user3,user4);
+        users.push(admin,user1,user2,user3,user4);
         for(let user of users){
             UserModel.exists({ email: user.email })
                 .then(res => {

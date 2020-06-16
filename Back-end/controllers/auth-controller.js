@@ -6,9 +6,7 @@ const config = require('../config/jwt-properties');
 
 exports.signin = async(req, res, next) => {
     try {
-        console.log("1- INSIDE TRY....");
         const user = await User.findOne({ email: req.body.email });
-        console.log("2- INSIDE TRY....");
         if (user) {
             const isValid = await bcrypt.compare(req.body.password, user.password);
             if (isValid) {
