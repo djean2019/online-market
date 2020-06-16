@@ -14,6 +14,7 @@ exports.getById = (req, res, next) => {
     User.findById(req.params.userId)
         .then(result => {
             res.status(200).send(result);
+            console.log(result);
         })
         .catch(err => {
             res.status(500).send({ errMsg: err });

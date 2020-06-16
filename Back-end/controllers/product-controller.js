@@ -1,4 +1,6 @@
-const Product = require('../models/product-model');
+const Product = require('../models/product-model').productModel;
+const ResponseApi = require('../models/response');
+const mongoose = require('mongoose');
 
 exports.insert = (req, res, next) => {
     Product.create(req.body)
@@ -53,11 +55,14 @@ exports.list = (req, res, next) => {
 }
 
 exports.listBySeller = (req, res, next) => {
-    Product.findById(req.params.sellerId)
+    let selId = req.params.sellerId;
+    Product.aggregate([
+            { $match: { userId: mongoose.Types.ObjectId(selId) } },
+        ])
         .then(result => {
-            res.status(200).send(result);
+            res.status(200).send(new ResponseApi(200, 'success', result));
         })
         .catch(err => {
-            res.status(500).send({errMsg: err});
-        })
-}
+            res.status(500).send(new ResponseApi(500, 'error', err));
+        });
+};

@@ -42,10 +42,10 @@ module.exports = {
         }
     },
     populateProduct: function (onComplete) {
-        let pro1 = new ProductModel({ name: 'Angular', price: 30, imageUrl: 'https://www.levelaccess.com/wp-content/uploads/2015/08/AngularJS_google.png', description: 'This is a nice book', userId:'5ee69514ecad5b6a3f7c4961' })
-        let pro2 = new ProductModel({ name: 'Node Js', price: 70, imageUrl: 'https://i.imgur.com/RHBW5y1.png', description: 'Server side lessons', userId:'5ee69514ecad5b6a3f7c4961' })
-        let pro3 = new ProductModel({ name: 'React Js', price: 50, imageUrl: 'https://www.valuecoders.com/common/images-2/reactjs-og.png', description: 'Nice reactive learning book',userId: '5ee69514ecad5b6a3f7c4962' })
-        let pro4 = new ProductModel({ name: 'Spring', price: 100, imageUrl: 'https://miro.medium.com/max/550/1*47DZV2oA3VWB-AaZOIT73w.png', description: 'A better way to improve your app', userId: '5ee69515ecad5b6a3f7c4963' })
+        let pro1 = new ProductModel({ name: 'Angular', price: 30, imageUrl: 'https://www.levelaccess.com/wp-content/uploads/2015/08/AngularJS_google.png', description: 'This is a nice book', userId:'5ee8106fde993aab21ebcc5d' })
+        let pro2 = new ProductModel({ name: 'Node Js', price: 70, imageUrl: 'https://i.imgur.com/RHBW5y1.png', description: 'Server side lessons', userId:'5ee8106fde993aab21ebcc5f' })
+        let pro3 = new ProductModel({ name: 'React Js', price: 50, imageUrl: 'https://www.valuecoders.com/common/images-2/reactjs-og.png', description: 'Nice reactive learning book',userId: '5ee8106fde993aab21ebcc5d' })
+        let pro4 = new ProductModel({ name: 'Spring', price: 100, imageUrl: 'https://miro.medium.com/max/550/1*47DZV2oA3VWB-AaZOIT73w.png', description: 'A better way to improve your app', userId: '5ee8106fde993aab21ebcc60' })
         let products = [];
         products.push(pro1,pro2,pro3,pro4);
         for(let product of products){
