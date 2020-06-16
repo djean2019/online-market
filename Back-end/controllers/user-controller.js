@@ -35,8 +35,8 @@ exports.patchById = (req, res, next) => {
 
 exports.list = (req, res, next) => {
     User.find()
-        .then(users => {
-            res.status(200).send(users);
+        .then(result => {
+            res.status(200).send(result);
         })
         .catch(err => {
             res.status(500).send({ errMsg: err });
