@@ -1,0 +1,23 @@
+footer {
+  background: #3f51b5;
+  margin-top: 3rem;
+  padding: 1rem 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  color: #f3f3f3;
+}
+footer .container {
+  margin: auto;
+  text-align: center;
+}
+
+footer a {
+  color: #f3f3f3;
+  text-decoration: none;
+}
+
+.logo-font {
+  font-family: titillium web, sans-serif;
+  vertical-align: middle;
+}

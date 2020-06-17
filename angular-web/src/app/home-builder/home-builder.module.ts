@@ -7,6 +7,7 @@ import { HomeBuilderRoutingModule } from './home-builder-routing.module';
 import { SideNavComponent } from './components/side-nav/side-nav.component';
 import { ToolBarComponent } from './components/tool-bar/tool-bar.component';
 import { MaterialModule } from '../material/material.module';
+import { FooterComponent } from '../material/layout';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { MaterialModule } from '../material/material.module';
     MainContentComponent,
     SideNavComponent,
     ToolBarComponent,
+    FooterComponent,
   ],
   imports: [CommonModule, HomeBuilderRoutingModule, MaterialModule],
 })
