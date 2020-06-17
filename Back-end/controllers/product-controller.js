@@ -66,3 +66,27 @@ exports.listBySeller = (req, res, next) => {
             res.status(500).send(new ResponseApi(500, 'error', err));
         });
 };
+
+exports.addToCart = (req, res, next) => {
+    const prodId = req.body.productId;
+    Product.findById(prodId)
+        .then(product => {
+            console.log(product);
+            
+            const userId = product.userId;
+            User.updateOne(
+                {_id: mongoose.Types.ObjectId(userId)}, {$push: {"cart":product}}
+            )
+            .then(result => {
+                res.status(200).send(new ResponseApi(200, 'success', result));
+            })
+            .catch(err => {
+                res.status(500).send(new ResponseApi(500, 'error', err));
+            });
+        })
+        .then(result => {
+            console.log(result);
+            res.redirect('/cart');
+        })
+        .catch(err => console.log(err));
+};
