@@ -1,6 +1,71 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" class="mat-elevation-z6">
   <button mat-button (click)="toggleSidenav.emit()">
     <mat-icon>menu</mat-icon>
   </button>
-  <span>XDD Market</span>
+  <a mat-button [routerLink]="['/']">XDD Market</a>
+  <span class="fill-remaining-space"></span>
+
+  <!-- <a mat-button [routerLink]="['/']">Home</a>
+  <a mat-button [routerLink]="['/login']">Signin</a>
+  <a mat-button [routerLink]="['/register']">Signup</a> -->
+
+  <!-- Show this for logged out users -->
+  <a *appShowAuthed="false" mat-button [routerLink]="['/']">
+    Home
+  </a>
+  <a
+    *appShowAuthed="false"
+    mat-button
+    [routerLink]="['/login']"
+    routerLinkActive="active"
+  >
+    Sign in
+  </a>
+  <a
+    *appShowAuthed="false"
+    mat-button
+    [routerLink]="['/register']"
+    routerLinkActive="active"
+  >
+    Sign up
+  </a>
+
+  <!-- Show this for logged in users -->
+  <a
+    *appShowAuthed="true"
+    mat-button
+    [routerLink]="['/register']"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: true }"
+  >
+    Home
+  </a>
+
+  <a
+    *appShowAuthed="true"
+    mat-button
+    [routerLink]="['/register']"
+    routerLinkActive="active"
+  >
+    <i class="ion-gear-a"></i>&nbsp;Settings
+  </a>
+
+  <a
+    *appShowAuthed="true"
+    mat-button
+    [routerLink]="['/register']"
+    routerLinkActive="active"
+  >
+    <img [src]="currentUser.image" *ngIf="currentUser.image" class="user-pic" />
+    {{ currentUser.username }}
+  </a>
+
+  <mat-menu #appMenu="matMenu">
+    <button mat-menu-item>Settings</button>
+    <button mat-menu-item>Help</button>
+  </mat-menu>
+
+  <button mat-icon-button [matMenuTriggerFor]="appMenu">
+    <mat-icon>more_vert</mat-icon>
+  </button>
 </mat-toolbar>

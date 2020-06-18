@@ -1,4 +1,11 @@
-import { Component, OnInit, NgZone } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  NgZone,
+  ViewChild,
+  ElementRef,
+} from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
 const MAX_WIDTH_BREAKPOINT = 720;
 
 @Component({
@@ -7,6 +14,7 @@ const MAX_WIDTH_BREAKPOINT = 720;
   styleUrls: ['./side-nav.component.css'],
 })
 export class SideNavComponent implements OnInit {
+  @ViewChild('sidenav') sidenav: MatSidenav;
   private mediaMatcher: MediaQueryList = matchMedia(
     `(max-width: ${MAX_WIDTH_BREAKPOINT}px)`
   );

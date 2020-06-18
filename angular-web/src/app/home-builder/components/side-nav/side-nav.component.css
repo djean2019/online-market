@@ -14,6 +14,11 @@
 .app-sidenav {
   width: 240px;
 }
+.toolbar-menu {
+  font-family: source sans pro, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
 
 .wrapper {
   margin: 50px;

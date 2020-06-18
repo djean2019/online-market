@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { User, UserService } from '../../../core';
 
 @Component({
   selector: 'app-tool-bar',
@@ -7,7 +8,13 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 })
 export class ToolBarComponent implements OnInit {
   @Output() toggleSidenav = new EventEmitter();
-  constructor() {}
+  constructor(private userService: UserService) {}
 
-  ngOnInit(): void {}
+  currentUser: User;
+
+  ngOnInit() {
+    this.userService.currentUser.subscribe((userData) => {
+      this.currentUser = userData;
+    });
+  }
 }

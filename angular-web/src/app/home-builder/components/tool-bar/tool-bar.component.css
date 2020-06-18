@@ -1,1 +1,11 @@
+a {
+  color: white;
+  text-decoration: none;
+  font-family: source sans pro, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+}
 
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
