@@ -1,5 +1,5 @@
 const User = require('../models/user-model').userModel;
-const Product = require('../models/product-model').productModel;
+// const Product = require('../models/product-model').productModel;
 
 exports.insert = (req, res, next) => {
     User.create(req.body)
