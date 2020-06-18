@@ -12,35 +12,35 @@ module.exports = {
   populateUsers: function (onComplete) {
     let admin = new UserModel({
       _id: mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d1"),
-      fullname: "Darphe H. J.",
+      username: "Darphe",
       email: "darphe@onlinemarket.com",
       password: bcrypt.encodeSync("1234567"),
       role: "ADMIN",
     });
     let user1 = new UserModel({
       _id: mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d2"),
-      fullname: "Joanne H. J.",
+      username: "Joanne",
       email: "joanne@onlinemarket.com",
       password: bcrypt.encodeSync("1234"),
       role: "SELLER",
     });
     let user2 = new UserModel({
       _id: mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d3"),
-      fullname: "Longxiang X.",
-      email: "caleb@onlinemarket.com",
+      username: "Longxiang",
+      email: "long@onlinemarket.com",
       password: bcrypt.encodeSync("1234"),
       role: "BUYER",
     });
     let user3 = new UserModel({
       _id: mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d4"),
-      fullname: "Benssy H. J.",
+      username: "Benssy",
       email: "benssy@onlinemarket.com",
       password: bcrypt.encodeSync("1234"),
       role: "SELLER",
     });
     let user4 = new UserModel({
       _id: mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d5"),
-      fullname: "Blanco T.",
+      username: "Blanco",
       email: "blanco@onlinemarket.com",
       password: bcrypt.encodeSync("1234"),
       role: "BUYER",
@@ -127,54 +127,6 @@ module.exports = {
         .catch((err) =>
           onComplete(`product ${product.imageUrl} failed to create`)
         );
-    }
-  },
-  populateUsers: function (onComplete) {
-    let admin = new UserModel({
-      username: "Darphe H. J.",
-      email: "darphe@onlinemarket.com",
-      password: bcrypt.encodeSync("1234567"),
-      role: "ADMIN",
-    });
-    let user1 = new UserModel({
-      username: "Joanne H. J.",
-      email: "joanne@onlinemarket.com",
-      password: bcrypt.encodeSync("1234"),
-      role: "SELLER",
-    });
-    let user2 = new UserModel({
-      username: "Caleb H. J.",
-      email: "caleb@onlinemarket.com",
-      password: bcrypt.encodeSync("1234"),
-      role: "BUYER",
-    });
-    let user3 = new UserModel({
-      username: "Benssy H. J.",
-      email: "benssy@onlinemarket.com",
-      password: bcrypt.encodeSync("1234"),
-      role: "SELLER",
-    });
-    let user4 = new UserModel({
-      username: "Blanco T.",
-      email: "blanco@onlinemarket.com",
-      password: bcrypt.encodeSync("1234"),
-      role: "SELLER",
-    });
-    let users = [];
-    users.push(admin, user1, user2, user3, user4);
-    for (let user of users) {
-      UserModel.exists({ email: user.email })
-        .then((res) => {
-          if (res) {
-            onComplete(
-              `user with ${user.email} Already available ${Date.now()}`
-            );
-          } else {
-            user.save();
-            onComplete(`user with ${user.email} created - ${Date.now()}`);
-          }
-        })
-        .catch((err) => onComplete(`user with ${user.email} failed to create`));
     }
   }
 };

@@ -7,9 +7,10 @@ const jwt = require("jsonwebtoken");
 const config = require("../config/jwt-properties");
 
 exports.insert = (req, res, next) => {
-  req.body.user.password = bcrypt.encodeSync(req.body.user.password);
-  User.create(req.body.user)
-    .then((result) => {
+//   req.body.user.password = bcrypt.encodeSync(req.body.user.password);
+// User.create(req.body.user)
+User.create(req.body)
+  .then((result) => {
       result.password = null;
       const token = jwt.sign({ user: result }, config.jwtKey, {
         expiresIn: config.jwtExpirySeconds,
@@ -21,7 +22,6 @@ exports.insert = (req, res, next) => {
       });
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).send({ errMsg: err });
     });
 };
@@ -33,7 +33,6 @@ exports.getById = (req, res, next) => {
       console.log(result);
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).send({ errMsg: err });
     });
 };
@@ -57,7 +56,6 @@ exports.list = (req, res, next) => {
       res.status(200).send(result);
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).send({ errMsg: err });
     });
 };
@@ -68,7 +66,6 @@ exports.removeById = (req, res, next) => {
       res.status(200).send(result);
     })
     .catch((err) => {
-      console.log(err);
       res.status(500).send({ errMsg: err });
     });
 };

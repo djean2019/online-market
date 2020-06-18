@@ -70,16 +70,18 @@ const user = {
       shipping: {
         street: {
           type: String,
+          default:"..."
         },
         state: {
           type: String,
+          default:"..."
         },
         zip: {
           type: String,
+          default:"..."
         },
       },
-    
-     }]
+    }]
 } // after commit
 
 const userSchema = new mongoose.Schema(user);
