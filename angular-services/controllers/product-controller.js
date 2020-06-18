@@ -78,7 +78,8 @@ exports.getCart = (req, res, next) =>{
     .catch(err => {
         res.status(500).send(new ResponseApi(500, 'error', err));
     })
-}
+};
+
 exports.removeCart = (req, res, next) =>{
     User.updateOne(
         { _id: mongoose.Types.ObjectId(req.params.buyerId) }
@@ -89,20 +90,20 @@ exports.removeCart = (req, res, next) =>{
     .catch(err => {
         res.status(500).send(new ResponseApi(500, 'error', err));
     })
-}
+};
 
 exports.addToCart = (req, res, next) => {
     const buyerId = req.params.buyerId;
     const prodId = req.params.productId;
-   console.log(isInCart(prodId));
+//    console.log(isInCart(prodId));
     Product.findById(prodId)
         .then(product => {
             User.updateOne(
-                // {_id: mongoose.Types.ObjectId(buyerId)}, {$pop: {"cart":-1}}
-                // {_id: mongoose.Types.ObjectId(buyerId)}, {$push: {"cart":{"productId":product._id,"quantity":1}}}
+                // {_id: mongoose.Types.ObjectId(buyerId)}, {$pop: {"cart":1}}
+                {_id: mongoose.Types.ObjectId(buyerId)}, {$push: {"cart":{"productId":product._id,"price":product.price,"quantity":1}}}
+                //  {_id: mongoose.Types.ObjectId(buyerId)}, {$push: {"cart":product}}
                 // {_id: mongoose.Types.ObjectId(buyerId)}, {$set: {"$cart.productId":mongoose.Types.ObjectId(product._Id), "$cart.quantity":1}}
-
-                {$and:[{_id: mongoose.Types.ObjectId(buyerId)}, {"cart.productId":mongoose.Types.ObjectId(product._id)}]}, {$set: {"cart.productId":mongoose.Types.ObjectId(product._id),"cart.quantity":{$inc:1}}}, {upsert: true}
+                // {$and:[{_id: mongoose.Types.ObjectId(buyerId)}, {"cart.productId":mongoose.Types.ObjectId(product._id)}]}, {$set: {"cart.productId":mongoose.Types.ObjectId(product._id),"cart.quantity":{$inc:1}}}, {upsert: true}
             )
             .then(result => {
                 res.status(200).send(new ResponseApi(200, 'success', result));
@@ -116,11 +117,3 @@ exports.addToCart = (req, res, next) => {
     })
     .catch(err => console.log(err));
 };
-
-const isInCart = function(id){
-    User.find({"cart.quantity": 1})
-        .then(result=> {
-            console.log("Test in cart: ",result);
-            return  result;
-        });
-}

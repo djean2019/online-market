@@ -44,14 +44,10 @@ const user = {
         type: String,
         default: 'BUYER'
     },
-    // 'billaddress':{
-    //     type: String,
-    //     default:'...'
-    // },
-    //  'shipaddress':{
-    //     type: String,
-    //     default: '...'
-    //  }
+    'isApprouved': {
+        type: Boolean,
+        default: false
+    },
     'address':[
         {
             'billing':{
