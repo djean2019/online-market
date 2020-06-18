@@ -47,17 +47,12 @@
     [routerLink]="['/register']"
     routerLinkActive="active"
   >
-    <i class="ion-gear-a"></i>&nbsp;Settings
+    <img [src]="currentUser.image" *ngIf="currentUser.image" class="user-pic" />
+    Welcome {{ currentUser.username }}！
   </a>
 
-  <a
-    *appShowAuthed="true"
-    mat-button
-    [routerLink]="['/register']"
-    routerLinkActive="active"
-  >
-    <img [src]="currentUser.image" *ngIf="currentUser.image" class="user-pic" />
-    {{ currentUser.username }}
+  <a *appShowAuthed="true" mat-button (click)="logout()">
+    Logout
   </a>
 
   <mat-menu #appMenu="matMenu">

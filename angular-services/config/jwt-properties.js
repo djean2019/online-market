@@ -3,7 +3,6 @@
  */
 
 module.exports = {
-    'jwtKey': 'mykey',
-    'jwtExpirySeconds': 300
+  jwtKey: "mykey",
+  jwtExpirySeconds: 36000,
 };
-
