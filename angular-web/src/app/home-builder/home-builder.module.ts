@@ -11,6 +11,7 @@ import { FooterComponent } from '../material/layout';
 import { SellerBuilderModule } from '../seller-builder/seller-builder.module';
 import { AuthModule } from '../auth/auth.module';
 import { SharedModule } from '../material/shared';
+import { CoreModule } from '../core';
 
 @NgModule({
   declarations: [
