@@ -3,7 +3,6 @@
  *
  * App Utilities
  */
-const AdminModel = require('../models/admin-model').adminModel
 const ProductModel = require('../models/product-model').productModel
 const UserModel = require('../models/user-model').userModel
 const bcrypt = require('../util/bcrypt');
