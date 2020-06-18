@@ -32,7 +32,7 @@ const product = {
         default: Date.now
     },
     'userId': {
-        type: mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId, ref: 'user',
         required: true
     }
 }

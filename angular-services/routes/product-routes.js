@@ -8,6 +8,9 @@ router.post('/seller/products', productController.insert);
 router.get('/seller/:sellerId/products', productController.listBySeller);
 router.patch('/seller/products/:productId', productController.patchById);
 router.delete('/seller/products/:productId', productController.removeById);
-router.post('/buyer/:buyerId/products/:productId', productController.addToCart);
+
+router.post('/buyer/:buyerId/:productId', productController.addToCart);
+router.get('/buyer/:buyerId/cart', productController.getCart);
+router.post('/buyer/:buyerId', productController.deleteCart);
 
 module.exports = router;

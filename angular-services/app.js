@@ -16,7 +16,8 @@ app.use(morgan("dev"));
 app.use(bodyParser.json());
 
 app.use(authRoutes);
-//app.use(auth.verifyToken);
+// app.use(auth.verifyToken);
+app.use(adminRoutes);
 app.use(userRoutes);
 app.use(productRoutes);
 
