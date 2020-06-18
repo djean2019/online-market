@@ -6,7 +6,8 @@
 const AdminModel = require('../models/admin-model').adminModel
 const ProductModel = require('../models/product-model').productModel
 const UserModel = require('../models/user-model').userModel
-const bcrypt = require('../util/bcrypt')
+const bcrypt = require('../util/bcrypt');
+const mongoose = require('mongoose');
 
 module.exports = {
     populateAdmin: function (onComplete) {
@@ -22,11 +23,11 @@ module.exports = {
             }).catch(err => onComplete(`admin failed to create`))
     },
     populateUsers: function (onComplete) {
-        let admin = new UserModel({ fullname: 'Darphe H. J.', email: 'darphe@onlinemarket.com', password: bcrypt.encodeSync('1234567'), role:'ADMIN' })
-        let user1 = new UserModel({ fullname: 'Joanne H. J.', email: 'joanne@onlinemarket.com', password: bcrypt.encodeSync('1234'), role:'SELLER' });
-        let user2 = new UserModel({ fullname: 'Caleb H. J.', email: 'caleb@onlinemarket.com', password: bcrypt.encodeSync('1234'), role:'BUYER' });
-        let user3 = new UserModel({ fullname: 'Benssy H. J.', email: 'benssy@onlinemarket.com', password: bcrypt.encodeSync('1234'), role:'SELLER' });
-        let user4 = new UserModel({ fullname: 'Blanco T.', email: 'blanco@onlinemarket.com', password: bcrypt.encodeSync('1234'), role:'SELLER', 
+        let admin = new UserModel({ "_id":mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d1"),fullname: 'Darphe H. J.', email: 'darphe@onlinemarket.com', password: bcrypt.encodeSync('1234567'), role:'ADMIN' })
+        let user1 = new UserModel({ "_id":mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d2"),fullname: 'Joanne H. J.', email: 'joanne@onlinemarket.com', password: bcrypt.encodeSync('1234'), role:'SELLER' });
+        let user2 = new UserModel({ "_id":mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d3"),fullname: 'Longxiang X.', email: 'caleb@onlinemarket.com', password: bcrypt.encodeSync('1234'), role:'BUYER' });
+        let user3 = new UserModel({ "_id":mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d4"),fullname: 'Benssy H. J.', email: 'benssy@onlinemarket.com', password: bcrypt.encodeSync('1234'), role:'SELLER' });
+        let user4 = new UserModel({ "_id":mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d5"),fullname: 'Blanco T.', email: 'blanco@onlinemarket.com', password: bcrypt.encodeSync('1234'), role:'BUYER', 
         address:[
             {
                 'billing':{
