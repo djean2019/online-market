@@ -5,6 +5,7 @@ const cors = require("cors");
 const userRoutes = require("./routes/user-routes");
 const authRoutes = require("./routes/auth-routes");
 const productRoutes = require("./routes/product-routes");
+const adminRoutes = require("./routes/admin-routes");
 const auth = require("./util/jwt-auth");
 const morgan = require("morgan");
 
