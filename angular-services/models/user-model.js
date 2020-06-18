@@ -78,7 +78,7 @@ const user = {
                 }
             }
         }]
-  
+    } // after commit
 }
 
 const userSchema = new mongoose.Schema(user);
