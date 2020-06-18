@@ -96,6 +96,22 @@ exports.deleteCart = (req, res, next) =>{
         )
 };
 
+exports.removeToCart = (req, res, next) =>{
+    User.findById(req.params.buyerId)
+        .then(result =>{
+            User.updateOne(
+                { _id: mongoose.Types.ObjectId(req.params.buyerId) }, {$set:{"cart":[]}}
+            )
+            .then(result => {
+                res.status(200).send(new ResponseApi(200, 'success', result));
+            })
+            .catch(err => {
+                res.status(500).send(new ResponseApi(500, 'error', err));
+            })
+        }
+        )
+};
+
 const isInCart = function(id){
    User.find({"cart.productId":mongoose.Types.ObjectId(id)})
                 .then(result => {
@@ -117,7 +133,11 @@ exports.addToCart = (req, res, next) => {
                 console.log(isInCart(prodId));
 
                 User.updateOne(
-                    {_id: mongoose.Types.ObjectId(buyerId)}, {$pop: {"cart":1}})
+                    // {_id: mongoose.Types.ObjectId(buyerId)}, {$pop: {"cart":1}}
+                    {_id: mongoose.Types.ObjectId(buyerId)}, {$push: {"cart":{"productId":product._id,"price":product.price,"quantity":1}}}
+                    // {_id: mongoose.Types.ObjectId(buyerId), "cart.productId":mongoose.Types.ObjectId(prodId)},{$inc:{"cart.$.quantity":1}}
+                    // {_id: mongoose.Types.ObjectId(buyerId), "cart.productId":mongoose.Types.ObjectId(prodId)}, {$set: {"cart.$.price":product.price},$inc:{"cart.$.quantity":1}}  // works with existing product
+                )
                 .then(result => {
                     res.status(200).send(new ResponseApi(200, 'success', result));
                 })

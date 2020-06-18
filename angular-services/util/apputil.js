@@ -56,10 +56,10 @@ module.exports = {
         }
     },
     populateProduct: function (onComplete) {
-        let pro1 = new ProductModel({ name: 'Angular', price: 30, imageUrl: 'https://www.levelaccess.com/wp-content/uploads/2015/08/AngularJS_google.png', description: 'This is a nice book', userId:'5eeb587c2d00fe19cf34b4d2' })
-        let pro2 = new ProductModel({ name: 'Node Js', price: 70, imageUrl: 'https://i.imgur.com/RHBW5y1.png', description: 'Server side lessons', userId:'5eeb587c2d00fe19cf34b4d4' })
-        let pro3 = new ProductModel({ name: 'React Js', price: 50, imageUrl: 'https://www.valuecoders.com/common/images-2/reactjs-og.png', description: 'Nice reactive learning book',userId: '5eeb587c2d00fe19cf34b4d5' })
-        let pro4 = new ProductModel({ name: 'Spring', price: 100, imageUrl: 'https://miro.medium.com/max/550/1*47DZV2oA3VWB-AaZOIT73w.png', description: 'A better way to improve your app', userId: '5eeb587c2d00fe19cf34b4d2' })
+        let pro1 = new ProductModel({ "_id":mongoose.Types.ObjectId("5eeb9315af3c3b2bca59ffa4"), name: 'Angular', price: 30, imageUrl: 'https://www.levelaccess.com/wp-content/uploads/2015/08/AngularJS_google.png', description: 'This is a nice book', userId:'5eeb587c2d00fe19cf34b4d2' })
+        let pro2 = new ProductModel({ "_id":mongoose.Types.ObjectId("5eeb9315af3c3b2bca59ffa5"), name: 'Node Js', price: 70, imageUrl: 'https://i.imgur.com/RHBW5y1.png', description: 'Server side lessons', userId:'5eeb587c2d00fe19cf34b4d4' })
+        let pro3 = new ProductModel({ "_id":mongoose.Types.ObjectId("5eeb9315af3c3b2bca59ffa6"), name: 'React Js', price: 50, imageUrl: 'https://www.valuecoders.com/common/images-2/reactjs-og.png', description: 'Nice reactive learning book',userId: '5eeb587c2d00fe19cf34b4d5' })
+        let pro4 = new ProductModel({ "_id":mongoose.Types.ObjectId("5eeb9315af3c3b2bca59ffa7"), name: 'Spring', price: 100, imageUrl: 'https://miro.medium.com/max/550/1*47DZV2oA3VWB-AaZOIT73w.png', description: 'A better way to improve your app', userId: '5eeb587c2d00fe19cf34b4d2' })
         let products = [];
         products.push(pro1,pro2,pro3,pro4);
         for(let product of products){
