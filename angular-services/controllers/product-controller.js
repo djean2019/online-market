@@ -80,37 +80,61 @@ exports.getCart = (req, res, next) =>{
     })
 };
 
-exports.removeCart = (req, res, next) =>{
-    User.updateOne(
-        { _id: mongoose.Types.ObjectId(req.params.buyerId) }
-    )
-    .then(result => {
-        res.status(200).send(new ResponseApi(200, 'success', result));
-    })
-    .catch(err => {
-        res.status(500).send(new ResponseApi(500, 'error', err));
-    })
-};
-
-exports.addToCart = (req, res, next) => {
-    const buyerId = req.params.buyerId;
-    const prodId = req.params.productId;
-//    console.log(isInCart(prodId));
-    Product.findById(prodId)
-        .then(product => {
+exports.deleteCart = (req, res, next) =>{
+    User.findById(req.params.buyerId)
+        .then(result =>{
             User.updateOne(
-                // {_id: mongoose.Types.ObjectId(buyerId)}, {$pop: {"cart":1}}
-                {_id: mongoose.Types.ObjectId(buyerId)}, {$push: {"cart":{"productId":product._id,"price":product.price,"quantity":1}}}
-                //  {_id: mongoose.Types.ObjectId(buyerId)}, {$push: {"cart":product}}
-                // {_id: mongoose.Types.ObjectId(buyerId)}, {$set: {"$cart.productId":mongoose.Types.ObjectId(product._Id), "$cart.quantity":1}}
-                // {$and:[{_id: mongoose.Types.ObjectId(buyerId)}, {"cart.productId":mongoose.Types.ObjectId(product._id)}]}, {$set: {"cart.productId":mongoose.Types.ObjectId(product._id),"cart.quantity":{$inc:1}}}, {upsert: true}
+                { _id: mongoose.Types.ObjectId(req.params.buyerId) }, {$set:{"cart":[]}}
             )
             .then(result => {
                 res.status(200).send(new ResponseApi(200, 'success', result));
             })
             .catch(err => {
                 res.status(500).send(new ResponseApi(500, 'error', err));
-            });
+            })
+        }
+        )
+};
+
+const isInCart = function(id){
+   User.find({"cart.productId":mongoose.Types.ObjectId(id)})
+                .then(result => {
+                    console.log(result);
+                    return result;
+                });
+}
+
+// const isInCart = function(id){
+//     return User.find({"cart.productId":mongoose.Types.ObjectId(id)})
+//  }
+
+exports.addToCart = (req, res, next) => {
+    const buyerId = req.params.buyerId;
+    const prodId = req.params.productId;
+    Product.findById(prodId)
+        .then(product => {
+            if(isInCart(prodId)===undefined){
+                console.log(isInCart(prodId));
+
+                User.updateOne(
+                    {_id: mongoose.Types.ObjectId(buyerId)}, {$pop: {"cart":1}})
+                .then(result => {
+                    res.status(200).send(new ResponseApi(200, 'success', result));
+                })
+                .catch(err => {
+                    res.status(500).send(new ResponseApi(500, 'error', err));
+                });
+            }else{
+                User.updateOne(
+                {_id: mongoose.Types.ObjectId(buyerId), "cart.productId":mongoose.Types.ObjectId(prodId)},{$inc:{"cart.$.quantity":1}}
+                )
+                .then(result => {
+                    res.status(200).send(new ResponseApi(200, 'success', result));
+                })
+                .catch(err => {
+                    res.status(500).send(new ResponseApi(500, 'error', err));
+                });
+            }
         })
     .then(resul => {
         // res.redirect('/cart');
