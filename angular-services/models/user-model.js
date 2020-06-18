@@ -36,13 +36,13 @@ const user = {
     default: Date.now,
   },
   cart: [],
-  // 'cart':[{
+  // 'cart':{
   //     'productId': {
   //         type: mongoose.Schema.Types.ObjectId, ref: 'product'
   //     },
   //     'price': Number,
   //     'quantity': Number
-  // }],
+  // },
   role: {
     type: String,
     default: "BUYER",

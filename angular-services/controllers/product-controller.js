@@ -111,29 +111,16 @@ exports.removeToCart = (req, res, next) => {
   });
 };
 
-const isInCart = function (id) {
-  User.find({ "cart.productId": mongoose.Types.ObjectId(id) }).then(
-    (result) => {
-      console.log(result);
-      return result;
-    }
-  );
-};
-
-// const isInCart = function(id){
-//     return User.find({"cart.productId":mongoose.Types.ObjectId(id)})
-//  }
-
-exports.addToCart = (req, res, next) => {
+exports.addToCart = async (req, res, next) => {
   const buyerId = req.params.buyerId;
   const prodId = req.params.productId;
+  var isInCart = await User.find({ "cart.productId": mongoose.Types.ObjectId(prodId) });
+
   Product.findById(prodId)
     .then((product) => {
-      if (isInCart(prodId) === undefined) {
-        console.log(isInCart(prodId));
-
+      if (isInCart.length===0) {
+        
         User.updateOne(
-          // {_id: mongoose.Types.ObjectId(buyerId)}, {$pop: {"cart":1}}
           { _id: mongoose.Types.ObjectId(buyerId) },
           {
             $push: {
@@ -144,8 +131,6 @@ exports.addToCart = (req, res, next) => {
               },
             },
           }
-          // {_id: mongoose.Types.ObjectId(buyerId), "cart.productId":mongoose.Types.ObjectId(prodId)},{$inc:{"cart.$.quantity":1}}
-          // {_id: mongoose.Types.ObjectId(buyerId), "cart.productId":mongoose.Types.ObjectId(prodId)}, {$set: {"cart.$.price":product.price},$inc:{"cart.$.quantity":1}}  // works with existing product
         )
           .then((result) => {
             res.status(200).send(new ResponseApi(200, "success", result));
@@ -169,7 +154,7 @@ exports.addToCart = (req, res, next) => {
           });
       }
     })
-    .then((resul) => {
+    .then((result) => {
       // res.redirect('/cart');
     })
     .catch((err) => console.log(err));
