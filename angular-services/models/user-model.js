@@ -34,10 +34,53 @@ const user = {
         default: Date.now
     },
     'cart':[],
-    role: {
+    // 'cart':[{
+    //     'productId': {
+    //         type: mongoose.Schema.Types.ObjectId, ref: 'product'
+    //     },
+    //     'quantity': Number
+    // }],
+    'role': {
         type: String,
         default: 'BUYER'
-    }
+    },
+    // 'billaddress':{
+    //     type: String,
+    //     default:'...'
+    // },
+    //  'shipaddress':{
+    //     type: String,
+    //     default: '...'
+    //  }
+    'address':[
+        {
+            'billing':{
+                'street':{
+                    type: String,
+                    default:'...'
+                },
+                'state':{
+                    type: String,
+                    default:'...'
+                },
+                'zip':{
+                    type: String,
+                    default:'...'
+                }
+            },
+            'shipping':{
+                'street':{
+                    type: String,
+                },
+                'state':{
+                    type: String,
+                },
+                'zip':{
+                    type: String,
+                }
+            }
+        }]
+  
 }
 
 const userSchema = new mongoose.Schema(user);
