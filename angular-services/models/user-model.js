@@ -26,60 +26,61 @@ const user = {
       },
       message: (props) => `${props.value} Validation failed`,
     },
-    'password': {
-        type: String,
-        required: true
-    },
-    'createdDate':{
-        type: Date,
-        default: Date.now
-    },
-    'cart':[],
-    // 'cart':[{
-    //     'productId': {
-    //         type: mongoose.Schema.Types.ObjectId, ref: 'product'
-    //     },
-    //     'price': Number,
-    //     'quantity': Number
-    // }],
-    'role': {
-        type: String,
-        default: 'BUYER'
-    },
-    'isApprouved': {
-        type: Boolean,
-        default: false
-    },
-    'address':[
-        {
-            'billing':{
-                'street':{
-                    type: String,
-                    default:'...'
-                },
-                'state':{
-                    type: String,
-                    default:'...'
-                },
-                'zip':{
-                    type: String,
-                    default:'...'
-                }
-            },
-            'shipping':{
-                'street':{
-                    type: String,
-                },
-                'state':{
-                    type: String,
-                },
-                'zip':{
-                    type: String,
-                }
-            }
-        }]
-    } // after commit
-}
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  createdDate: {
+    type: Date,
+    default: Date.now,
+  },
+  cart: [],
+  // 'cart':[{
+  //     'productId': {
+  //         type: mongoose.Schema.Types.ObjectId, ref: 'product'
+  //     },
+  //     'price': Number,
+  //     'quantity': Number
+  // }],
+  role: {
+    type: String,
+    default: "BUYER",
+  },
+  isApprouved: {
+    type: Boolean,
+    default: false,
+  },
+  address: [
+    {
+      billing: {
+        street: {
+          type: String,
+          default: "...",
+        },
+        state: {
+          type: String,
+          default: "...",
+        },
+        zip: {
+          type: String,
+          default: "...",
+        },
+      },
+      shipping: {
+        street: {
+          type: String,
+        },
+        state: {
+          type: String,
+        },
+        zip: {
+          type: String,
+        },
+      },
+    
+     }]
+} // after commit
 
 const userSchema = new mongoose.Schema(user);
 const userModel = mongoose.model("user", userSchema);

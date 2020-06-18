@@ -1,14 +1,10 @@
-// <<<<<<< HEAD
-// const User = require('../models/user-model').userModel;
-// const Product = require('../models/product-model').productModel;
-// =======
+
 const User = require("../models/user-model").userModel;
 const Product = require("../models/product-model").productModel;
 const mongoose = require("mongoose");
 const bcrypt = require("../util/bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("../config/jwt-properties");
-// >>>>>>> 571d3437ffced68272423d2c2aa87377d2349829
 
 exports.insert = (req, res, next) => {
   req.body.user.password = bcrypt.encodeSync(req.body.user.password);
