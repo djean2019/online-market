@@ -10,7 +10,7 @@ exports.verifyToken = (req, res, next) => {
       .send(new ResponseApi(403, "error", { err: "No Token Provided..." }));
   }
   const token = authHeader.split(" ")[1];
-  console.log(token);
+  //console.log(token);
 
   jwt.verify(token, config.jwtKey, (err, decoded) => {
     if (err) {
