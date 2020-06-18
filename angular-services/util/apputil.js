@@ -10,18 +10,6 @@ const bcrypt = require('../util/bcrypt');
 const mongoose = require('mongoose');
 
 module.exports = {
-    populateAdmin: function (onComplete) {
-        let admin = new AdminModel({ fullname: 'Darphe H. J.', email: 'darphe@onlinemarket.com', password: bcrypt.encodeSync('1234567') })
-        AdminModel.exists({ email: admin.email })
-            .then(res => {
-                if (res) {
-                    onComplete(`admin Already available ${Date.now()}`)
-                } else {
-                    admin.save()
-                    onComplete(`admin created - ${Date.now()}`)
-                }
-            }).catch(err => onComplete(`admin failed to create`))
-    },
     populateUsers: function (onComplete) {
         let admin = new UserModel({ "_id":mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d1"),fullname: 'Darphe H. J.', email: 'darphe@onlinemarket.com', password: bcrypt.encodeSync('1234567'), role:'ADMIN' })
         let user1 = new UserModel({ "_id":mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d2"),fullname: 'Joanne H. J.', email: 'joanne@onlinemarket.com', password: bcrypt.encodeSync('1234'), role:'SELLER' });
