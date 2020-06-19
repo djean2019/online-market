@@ -37,6 +37,23 @@ exports.list = (req, res, next) => {
         });
 }
 
+// exports.cancelById = async (req, res, next) => {
+//     const orderStatus = await Order.find({$and:[{"_id":mongoose.Types.ObjectId(req.params.orderId)},{"status":"Pending"}]});
+//     if(orderStatus.length===0){
+//         res.status(401).send({
+//             errors: { "Cannot cancel this order": ["It has already been shipped."] },
+//           }); 
+//     } else {
+//         Order.findByIdAndDelete(req.params.orderId)
+//             .then(result => {
+//                 res.status(200).send({});
+
+//             })
+//             .catch(err => {
+//                 res.status(500).send({ errMsg: err });
+//             });
+//     }
+// }
 exports.cancelById = async (req, res, next) => {
     const orderStatus = await Order.find({$and:[{"_id":mongoose.Types.ObjectId(req.params.orderId)},{"status":"Pending"}]});
     if(orderStatus.length===0){
@@ -44,9 +61,22 @@ exports.cancelById = async (req, res, next) => {
             errors: { "Cannot cancel this order": ["It has already been shipped."] },
           }); 
     } else {
-        Order.findByIdAndDelete(req.params.orderId)
-            .then(result => {
-                res.status(200).send({});
+        Order.findById(req.params.orderId)
+            .then(order => {
+                User.updateOne({ _id: order.user.userId }, 
+                { $inc:{ point: -100} } 
+                )
+                .then(result => {
+                    Order.findByIdAndDelete(req.params.orderId)
+                        .then(result => {
+                            res.status(200).send({});
+            
+                        })
+                        .catch(err => {
+                            res.status(500).send({ errMsg: err });
+                        });
+                    // res.status(200).send(result);
+                })
             })
             .catch(err => {
                 res.status(500).send({ errMsg: err });
