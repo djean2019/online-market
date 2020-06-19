@@ -82,7 +82,9 @@ exports.addToCart = async (req, res, next) => {
                         $push: {
                             cart: {
                                 productId: product._id,
+                                name: product.name,
                                 price: product.price,
+                                sellerId: product.userId,
                                 quantity: 1,
                             },
                         },

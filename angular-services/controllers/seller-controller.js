@@ -1,5 +1,5 @@
 const Product = require("../models/product-model").productModel;
-const User = require("../models/user-model").userModel;
+const Order = require("../models/order-model").orderModel;
 const ResponseApi = require("../models/response");
 const mongoose = require("mongoose");
 
@@ -36,14 +36,23 @@ exports.patchById = (req, res, next) => {
 };
 
 exports.removeById = (req, res, next) => {
-  Product.findByIdAndDelete(req.params.productId)
-    .then((result) => {
-      res.status(200).send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).send({ errMsg: err });
-    });
+  const prod = Order.find({"items.productId":mongoose.Types.ObjectId(req.params.productId)});
+  console.log("The product: ",prod);
+
+  if(prod.length===0){
+    Product.findByIdAndDelete(req.params.productId)
+        .then((result) => {
+          res.status(200).send(result);
+        })
+        .catch((err) => {
+          console.log(err);
+          res.status(500).send({ errMsg: err });
+        });
+  } else{
+    res.status(401).send({
+      errors: { "Cannot delete this product": ["is ordered."] },
+    }); 
+  }
 };
 
 exports.listBySeller = (req, res, next) => {

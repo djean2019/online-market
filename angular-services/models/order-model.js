@@ -6,6 +6,14 @@ const mongoose = require('mongoose')
 
 const order = {
     'items':[],
+    'status':{
+        type: String,
+        default: "PENDING"
+    },
+    'payment':{
+        type: String,
+        default: "Credit card"
+    },
     'user': {
         'userId':{
                 type: mongoose.Schema.Types.ObjectId, ref: 'user'
