@@ -49,7 +49,7 @@ exports.removeById = async (req, res, next) => {
         });
   } else{
     res.status(401).send({
-      errors: { "Cannot delete this product": ["is ordered."] },
+      errors: { "Cannot delete this product": ["It is ordered."] },
     }); 
   }
 };

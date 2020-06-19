@@ -69,7 +69,7 @@ exports.cancelById = async (req, res, next) => {
                 .then(result => {
                     Order.findByIdAndDelete(req.params.orderId)
                         .then(result => {
-                            res.status(200).send({});
+                            res.status(200).send({result});
             
                         })
                         .catch(err => {
