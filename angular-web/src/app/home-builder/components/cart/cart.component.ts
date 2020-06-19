@@ -5,6 +5,7 @@ import { UserService, User } from "src/app/core";
 import { of } from "rxjs";
 import { concatMap, tap } from "rxjs/operators";
 import { Router } from "@angular/router";
+import { Cart } from "src/app/core/models/cart.module";
 
 @Component({
     selector: "app-cart",
@@ -18,7 +19,7 @@ export class CartComponent implements OnInit {
         private router: Router
     ) {}
 
-    results: Product[];
+    results: Cart[];
     loading = false;
     currentUser: User;
     ngOnInit(): void {
@@ -31,12 +32,22 @@ export class CartComponent implements OnInit {
     runQuery() {
         this.loading = true;
         this.results = [];
-        this.productService.queryCart(this.currentUser._id).pipe(
-            tap(data => {
-                this.loading = false;
-                this.results = data;
-            })
-        );
+        this.productService.queryCart(this.currentUser._id).subscribe(data => {
+            this.loading = false;
+            this.results = data.result[0].cart;
+        });
+    }
+    remove(prodId) {
+        this.loading = true;
+        this.results = [];
+        this.productService
+            .removeFromCart(this.currentUser._id, prodId)
+            .subscribe(data => this.runQuery());
+    }
+    removeAll() {
+        this.loading = true;
+        this.results = [];
+        this.productService.removeAll(this.currentUser._id).subscribe(data => this.runQuery());
     }
 
     addToCart(prodId) {
@@ -54,32 +65,6 @@ export class CartComponent implements OnInit {
                             console.log(data);
                         })
                     );
-                    //     // Otherwise, unfavorite the article
-                    // } else {
-                    //     return this.articlesService.unfavorite(this.article.slug).pipe(
-                    //         tap(
-                    //             data => {
-                    //                 this.isSubmitting = false;
-                    //                 this.toggle.emit(false);
-                    //             },
-                    //             err => (this.isSubmitting = false)
-                    //         )
-                    //     );
-                    // }
-                })
-            )
-            .subscribe();
-    }
-
-    buy() {
-        this.userService.isAuthenticated
-            .pipe(
-                concatMap(authenticated => {
-                    // Not authenticated? Push to login screen
-                    if (!authenticated) {
-                        this.router.navigateByUrl("/login");
-                        return of(null);
-                    }
                 })
             )
             .subscribe();

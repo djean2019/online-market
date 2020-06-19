@@ -9,12 +9,16 @@ import { Product } from "../models/product.modul";
 import { UserService } from "./user.service";
 import { User } from "../models";
 import { ApiResponse } from "../models/api.response";
+import { Cart } from "../models/cart.module";
+import { AppComponent } from "src/app/app.component";
+import { Router } from "@angular/router";
 
 @Injectable()
 export class ProductService {
     constructor(
         private apiService: ApiService,
         private jwtService: JwtService,
+        private router: Router,
         private userService: UserService
     ) {
         this.userService.currentUser.subscribe(userData => {
@@ -32,9 +36,27 @@ export class ProductService {
         );
     }
 
-    queryCart(buyerId): Observable<Product[]> {
+    queryCart(buyerId): Observable<ApiResponse> {
         const route = "/buyer/" + buyerId + "/cart";
         return this.apiService.get(route).pipe(
+            map(data => {
+                return data;
+            })
+        );
+    }
+
+    removeFromCart(buyerId, prodId): Observable<ApiResponse> {
+        const route = "/buyer/cart/" + buyerId + "/" + prodId;
+        return this.apiService.post(route).pipe(
+            map(data => {
+                return data;
+            })
+        );
+    }
+
+    removeAll(buyerId): Observable<ApiResponse> {
+        const route = "/buyer/cart/" + buyerId;
+        return this.apiService.delete(route).pipe(
             map(data => {
                 return data;
             })
