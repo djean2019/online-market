@@ -113,7 +113,7 @@ exports.addToCart = async (req, res, next) => {
             }
         })
         .then(result => {
-            // res.redirect('/cart');
+            // res.redirect('/buyer/:buyerId/cart');
         })
         .catch(err => console.log(err));
 };

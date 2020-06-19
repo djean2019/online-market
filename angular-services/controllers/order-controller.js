@@ -58,3 +58,15 @@ exports.cancelById = async (req, res, next) => {
             });
     }
 }
+
+exports.review = (req, res, next) => {
+    Order.updateOne({_id:mongoose.Types.ObjectId(req.params.orderId)},
+        {$set: {review:req.body.review}}
+    )
+    .then(result => {
+        res.status(200).send(result);
+    })
+    .catch(err => {
+        res.status(500).send({errMsg: err});
+    })
+}

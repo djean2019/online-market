@@ -82,7 +82,8 @@ const user = {
         },
       },
     }]
-} // after commit
+}
+
 
 const userSchema = new mongoose.Schema(user);
 const userModel = mongoose.model("user", userSchema);

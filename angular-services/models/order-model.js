@@ -56,7 +56,10 @@ const order = {
                 default:"..."
               },
           },
-        }]
+        }],
+    'review':{
+      type: String
+    }
 }
 
 const orderSchema = new mongoose.Schema(order);
