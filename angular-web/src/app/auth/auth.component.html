@@ -73,8 +73,9 @@
             <mat-form-field *ngIf="authType == 'register'">
                 <mat-label>Select an Role</mat-label>
                 <mat-select formControlName="role">
-                    <mat-option value="buyer">Buyer</mat-option>
-                    <mat-option value="seller">Seller</mat-option>
+                    <mat-option value="BUYER">Buyer</mat-option>
+                    <mat-option value="SELLER">Seller</mat-option>
+                    <mat-option value="ADMIN">ADMIN</mat-option>
                 </mat-select>
                 <mat-error *ngIf="roleFormControl.hasError('required')">
                     Role is <strong>required</strong>

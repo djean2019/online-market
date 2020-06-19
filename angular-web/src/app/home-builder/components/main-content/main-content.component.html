@@ -1,3 +1,27 @@
 <mat-card>
-  Main
+    <mat-grid-list cols="5" rowHeight="1:2">
+        <div [hidden]="!loading">
+            Loading products...
+        </div>
+
+        <div [hidden]="loading || results.length">
+            No products are here... yet.
+        </div>
+        <mat-grid-tile class="grid-tile" *ngFor="let product of results">
+            <mat-card class="grid-card">
+                <mat-card-header>
+                    <div mat-card-avatar class="grid-header-image"></div>
+                    <mat-card-title>{{ product.name }}</mat-card-title>
+                </mat-card-header>
+                <img mat-card-image src="{{ product.imageUrl }}" alt="" />
+                <mat-card-content>
+                    <p>{{ product.description }}</p>
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button>LIKE</button>
+                    <button mat-button>SHARE</button>
+                </mat-card-actions>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
 </mat-card>
