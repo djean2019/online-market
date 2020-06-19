@@ -9,4 +9,8 @@ router.get('/seller/products/:productId', sellerController.getById);
 router.patch('/seller/products/:productId', sellerController.patchById);
 router.delete('/seller/products/:productId', sellerController.removeById);
 
+router.post('/seller/:sellerId/orders/:orderId', sellerController.changeOrderStatus);
+router.get('/seller/orders/:sellerId', sellerController.getOrders);
+// router.get('/seller/:sellerId/orders/:orderId', sellerController.getOrders);
+
 module.exports = router;

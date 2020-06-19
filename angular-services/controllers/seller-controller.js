@@ -56,8 +56,7 @@ exports.removeById = (req, res, next) => {
 };
 
 exports.listBySeller = (req, res, next) => {
-  let selId = req.params.sellerId;
-  Product.aggregate([{ $match: { userId: mongoose.Types.ObjectId(selId) } }])
+  Product.aggregate([{ $match: { userId: mongoose.Types.ObjectId(req.params.sellerId) } }])
     .then((result) => {
       res.status(200).send(new ResponseApi(200, "success", result));
     })
@@ -65,3 +64,26 @@ exports.listBySeller = (req, res, next) => {
       res.status(500).send(new ResponseApi(500, "error", err));
     });
 };
+
+exports.getOrders = (req, res, next) => {
+  Order.find({"items.sellerId":req.params.sellerId})
+  .then(result => {
+      res.status(200).send(result);
+  })
+  .catch(err => {
+    res.status(500).send({errMsg : err});
+  })
+};
+
+exports.changeOrderStatus = (req, res, next) => {
+  const orderStauts = Order.updateOne(
+    {_id: mongoose.Types.ObjectId(req.params.orderId)}, {$set: {status:req.body.status}}
+  )
+  .then(result => {
+      res.status(200).send(new ResponseApi(200, 'success', result));
+  })
+  .catch(err => {
+      res.status(500).send(new ResponseApi(500, 'error', err));
+  });
+  console.log("Change status: ", orderStauts);
+}

@@ -3,6 +3,7 @@ const User = require('../models/user-model').userModel;
 const mongoose = require('mongoose');
 
 exports.createOrder = (req, res, next) => {
+    req.body.sellerId = mongoose.Types.ObjectId(req.body.sellerId);
     Order.create(req.body)
         .then(result => {
             res.status(201).send({ id: result._id });
@@ -23,7 +24,7 @@ exports.getById = (req, res, next) => {
 };
 
 exports.list = (req, res, next) => {
-    Order.find({"user.userId":mongoose.Types.ObjectId(req.params.buyerId)})
+    Order.find({"user.userId":mongoose.Types.ObjectId(req.params.buyerId)},{})
         .then(result => {
             res.status(200).send(result);
         })
@@ -32,7 +33,7 @@ exports.list = (req, res, next) => {
         });
 }
 
-exports.cancelById = (req, res, next) => {
+exports.deleteById = (req, res, next) => {
     Order.findByIdAndDelete(req.params.orderId)
         .then(result => {
             res.status(200).send(result);
