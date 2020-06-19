@@ -8,7 +8,7 @@ const order = {
     'items':[],
     'status':{
         type: String,
-        default: "Shipped-On"
+        default: "Pending"
     },
     'payment':{
         type: String,

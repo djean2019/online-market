@@ -35,9 +35,8 @@ exports.patchById = (req, res, next) => {
     });
 };
 
-exports.removeById = (req, res, next) => {
-  const prod = Order.find({"items.productId":mongoose.Types.ObjectId(req.params.productId)});
-  console.log("The product: ",prod);
+exports.removeById = async (req, res, next) => {
+  const prod = await Order.find({"items.productId":mongoose.Types.ObjectId(req.params.productId)});
 
   if(prod.length===0){
     Product.findByIdAndDelete(req.params.productId)

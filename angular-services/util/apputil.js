@@ -14,35 +14,35 @@ module.exports = {
       _id: mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d1"),
       username: "Darphe",
       email: "darphe@onlinemarket.com",
-      password: bcrypt.encodeSync("1234567"),
+      password: bcrypt.encodeSync("dar1234"),
       role: "ADMIN",
     });
     let user1 = new UserModel({
       _id: mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d2"),
       username: "Joanne",
       email: "joanne@onlinemarket.com",
-      password: bcrypt.encodeSync("1234"),
+      password: bcrypt.encodeSync("joa1234"),
       role: "SELLER",
     });
     let user2 = new UserModel({
       _id: mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d3"),
       username: "Longxiang",
       email: "long@onlinemarket.com",
-      password: bcrypt.encodeSync("1234"),
+      password: bcrypt.encodeSync("lon1234"),
       role: "BUYER",
     });
     let user3 = new UserModel({
       _id: mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d4"),
       username: "Benssy",
       email: "benssy@onlinemarket.com",
-      password: bcrypt.encodeSync("1234"),
+      password: bcrypt.encodeSync("ben1234"),
       role: "SELLER",
     });
     let user4 = new UserModel({
       _id: mongoose.Types.ObjectId("5eeb587c2d00fe19cf34b4d5"),
       username: "Blanco",
       email: "blanco@onlinemarket.com",
-      password: bcrypt.encodeSync("1234"),
+      password: bcrypt.encodeSync("bla1234"),
       role: "BUYER",
       address: [
         {
