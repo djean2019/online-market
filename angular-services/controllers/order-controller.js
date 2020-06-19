@@ -23,7 +23,7 @@ exports.getById = (req, res, next) => {
 };
 
 exports.list = (req, res, next) => {
-    Order.find({"order.user.userId":mongoose.Types.ObjectId(req.params.userId)})
+    Order.find({"user.userId":mongoose.Types.ObjectId(req.params.buyerId)})
         .then(result => {
             res.status(200).send(result);
         })
@@ -33,7 +33,7 @@ exports.list = (req, res, next) => {
 }
 
 exports.cancelById = (req, res, next) => {
-    Order.deleteOne(req.params.orderId)
+    Order.findByIdAndDelete(req.params.orderId)
         .then(result => {
             res.status(200).send(result);
         })

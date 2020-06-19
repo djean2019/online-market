@@ -96,22 +96,6 @@ exports.deleteCart = (req, res, next) => {
   });
 };
 
-// exports.removeFromCart = (req, res, next) => {
-//   User.findById(req.params.buyerId).then((result) => {
-//     User.updateOne(
-//       { _id: mongoose.Types.ObjectId(req.params.buyerId), "cart.productId": mongoose.Types.ObjectId(req.params.prodId) },
-//       { $pull: { cart:{productId: mongoose.Types.ObjectId(req.params.prodId)} }},
-//       {multi: true}
-//     )
-//       .then((result) => {
-//         res.status(200).send(new ResponseApi(200, "success", result));
-//       })
-//       .catch((err) => {
-//         res.status(500).send(new ResponseApi(500, "error", err));
-//       });
-//   });
-// };
-//  { $unset: { cart:{productId: '',price:'',quantity:''} }},
 exports.removeFromCart = (req, res, next) => {
     User.findById(req.params.buyerId).then((result) => {
       User.updateOne(
