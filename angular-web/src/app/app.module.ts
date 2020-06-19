@@ -8,6 +8,7 @@ import { HomeBuilderModule } from './home-builder/home-builder.module';
 import { AuthModule } from './auth/auth.module';
 import { CoreModule } from './core';
 import { SharedModule } from './material/shared';
+import { MaterialModule } from './material/material.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,6 +20,7 @@ import { SharedModule } from './material/shared';
     AuthModule,
     CoreModule,
     SharedModule,
+    MaterialModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
