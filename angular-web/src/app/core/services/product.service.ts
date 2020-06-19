@@ -9,24 +9,12 @@ import { Product } from "../models/product.modul";
 import { UserService } from "./user.service";
 import { User } from "../models";
 import { ApiResponse } from "../models/api.response";
-import { Cart } from "../models/cart.module";
-import { AppComponent } from "src/app/app.component";
 import { Router } from "@angular/router";
 
 @Injectable()
 export class ProductService {
-    constructor(
-        private apiService: ApiService,
-        private jwtService: JwtService,
-        private router: Router,
-        private userService: UserService
-    ) {
-        this.userService.currentUser.subscribe(userData => {
-            this.currentUser = userData;
-        });
-    }
-    currentUser: User;
-
+    constructor(private apiService: ApiService) {}
+    //common all people
     queryList(): Observable<Product[]> {
         const route = "/products";
         return this.apiService.get(route).pipe(
@@ -36,6 +24,26 @@ export class ProductService {
         );
     }
 
+    //seller
+    queryProdBySeller(sellerId): Observable<ApiResponse> {
+        const route = "/seller/" + sellerId + "/products";
+        return this.apiService.get(route).pipe(
+            map(data => {
+                return data;
+            })
+        );
+    }
+
+    addProduct(product): Observable<ApiResponse> {
+        const route = "/seller/products";
+        return this.apiService.post(route, product).pipe(
+            map(data => {
+                return data;
+            })
+        );
+    }
+
+    //buyer
     queryCart(buyerId): Observable<ApiResponse> {
         const route = "/buyer/" + buyerId + "/cart";
         return this.apiService.get(route).pipe(

@@ -16,7 +16,11 @@ export class MainContentComponent implements OnInit {
         private productService: ProductService,
         private userService: UserService,
         private router: Router
-    ) {}
+    ) {
+        this.userService.currentUser.subscribe(userData => {
+            this.currentUser = userData;
+        });
+    }
 
     results: Product[];
     loading = false;
@@ -43,10 +47,6 @@ export class MainContentComponent implements OnInit {
                         this.router.navigateByUrl("/login");
                         return of(null);
                     }
-
-                    this.userService.currentUser.subscribe(userData => {
-                        this.currentUser = userData;
-                    });
 
                     return this.productService.addToCart(this.currentUser._id, prodId).pipe(
                         tap(data => {
