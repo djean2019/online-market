@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
-import { ProductService } from "src/app/core/services/product.service";
-import { Product } from "src/app/core/models/product.modul";
-import { UserService, User } from "src/app/core";
+import { ProductService } from "./node_modules/src/app/core/services/product.service";
+import { Product } from "./node_modules/src/app/core/models/product.modul";
+import { UserService, User } from "./node_modules/src/app/core";
 import { of } from "rxjs";
 import { concatMap, tap } from "rxjs/operators";
 import { Router } from "@angular/router";

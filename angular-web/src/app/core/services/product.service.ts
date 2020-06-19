@@ -8,6 +8,7 @@ import { map, distinctUntilChanged } from "rxjs/operators";
 import { Product } from "../models/product.modul";
 import { UserService } from "./user.service";
 import { User } from "../models";
+import { ApiResponse } from "../models/api.response";
 
 @Injectable()
 export class ProductService {
@@ -29,5 +30,19 @@ export class ProductService {
                 return data;
             })
         );
+    }
+
+    queryCart(buyerId): Observable<Product[]> {
+        const route = "/buyer/" + buyerId + "/cart";
+        return this.apiService.get(route).pipe(
+            map(data => {
+                return data;
+            })
+        );
+    }
+
+    addToCart(buyId, prodId): Observable<ApiResponse> {
+        const route = "/buyer/" + buyId + "/" + prodId;
+        return this.apiService.post(route);
     }
 }
