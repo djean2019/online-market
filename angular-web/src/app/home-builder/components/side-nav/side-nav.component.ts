@@ -36,10 +36,16 @@ export class SideNavComponent implements OnInit {
                     }
                 );
             } else if (this.currentUser.role === "BUYER") {
-                this.links.push({
-                    name: "Orders",
-                    url: "manageOrders",
-                });
+                this.links.push(
+                    {
+                        name: "Orders",
+                        url: "manageOrders",
+                    },
+                    {
+                        name: "ShoppingCart",
+                        url: "manageCart",
+                    }
+                );
             } else {
                 this.links.push(
                     {

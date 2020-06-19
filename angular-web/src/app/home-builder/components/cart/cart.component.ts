@@ -7,11 +7,11 @@ import { concatMap, tap } from "rxjs/operators";
 import { Router } from "@angular/router";
 
 @Component({
-    selector: "app-main-content",
-    templateUrl: "./main-content.component.html",
-    styleUrls: ["./main-content.component.css"],
+    selector: "app-cart",
+    templateUrl: "./cart.component.html",
+    styleUrls: ["./cart.component.css"],
 })
-export class MainContentComponent implements OnInit {
+export class CartComponent implements OnInit {
     constructor(
         private productService: ProductService,
         private userService: UserService,
@@ -22,16 +22,21 @@ export class MainContentComponent implements OnInit {
     loading = false;
     currentUser: User;
     ngOnInit(): void {
+        this.userService.currentUser.subscribe(userData => {
+            this.currentUser = userData;
+        });
         this.runQuery();
     }
 
     runQuery() {
         this.loading = true;
         this.results = [];
-        this.productService.queryList().subscribe(data => {
-            this.loading = false;
-            this.results = data;
-        });
+        this.productService.queryCart(this.currentUser._id).pipe(
+            tap(data => {
+                this.loading = false;
+                this.results = data;
+            })
+        );
     }
 
     addToCart(prodId) {
@@ -43,10 +48,6 @@ export class MainContentComponent implements OnInit {
                         this.router.navigateByUrl("/login");
                         return of(null);
                     }
-
-                    this.userService.currentUser.subscribe(userData => {
-                        this.currentUser = userData;
-                    });
 
                     return this.productService.addToCart(this.currentUser._id, prodId).pipe(
                         tap(data => {
@@ -69,6 +70,7 @@ export class MainContentComponent implements OnInit {
             )
             .subscribe();
     }
+
     buy() {
         this.userService.isAuthenticated
             .pipe(
