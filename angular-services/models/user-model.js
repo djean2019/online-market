@@ -36,13 +36,13 @@ const user = {
     default: Date.now,
   },
   cart: [],
-  // 'cart':[{
+  // 'cart':{
   //     'productId': {
   //         type: mongoose.Schema.Types.ObjectId, ref: 'product'
   //     },
   //     'price': Number,
   //     'quantity': Number
-  // }],
+  // },
   role: {
     type: String,
     default: "BUYER",
@@ -70,17 +70,19 @@ const user = {
       shipping: {
         street: {
           type: String,
+          default:"..."
         },
         state: {
           type: String,
+          default:"..."
         },
         zip: {
           type: String,
+          default:"..."
         },
       },
-    },
-  ],
-};
+    }]
+} // after commit
 
 const userSchema = new mongoose.Schema(user);
 const userModel = mongoose.model("user", userSchema);
