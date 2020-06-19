@@ -4,7 +4,9 @@ const cors = require("cors");
 
 const userRoutes = require("./routes/user-routes");
 const authRoutes = require("./routes/auth-routes");
-const productRoutes = require("./routes/product-routes");
+const homeRoutes = require("./routes/home-routes");
+const sellerRoutes = require("./routes/seller-routes");
+const buyerRoutes = require("./routes/buyer-routes");
 const adminRoutes = require("./routes/admin-routes");
 const orderRoutes = require("./routes/order-routes");
 const auth = require("./util/jwt-auth");
@@ -19,10 +21,12 @@ app.use(bodyParser.json());
 
 app.use(authRoutes);
 // app.use(auth.verifyToken);
+app.use(homeRoutes);
 app.use(adminRoutes);
+app.use(buyerRoutes);
 app.use(orderRoutes);
 app.use(userRoutes);
-app.use(productRoutes);
+app.use(sellerRoutes);
 
 //error
 app.use((req, res, next) => {
