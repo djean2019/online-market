@@ -8,8 +8,6 @@ const config = require("../config/jwt-properties");
 
 exports.insert = (req, res, next) => {
     req.body.user.password = bcrypt.encodeSync(req.body.user.password);
-    // req.body.password = bcrypt.encodeSync(req.body.password);
-    // User.create(req.body)
     User.create(req.body.user)
     .then((result) => {
         result.password = null;

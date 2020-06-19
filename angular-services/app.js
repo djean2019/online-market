@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 app.use(authRoutes);
 // app.use(auth.verifyToken);
-// app.use(adminRoutes);
+app.use(adminRoutes);
 app.use(userRoutes);
 app.use(productRoutes);
 

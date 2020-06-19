@@ -117,7 +117,6 @@ exports.removeFromCart = (req, res, next) => {
       User.updateOne(
         { _id: mongoose.Types.ObjectId(req.params.buyerId), "cart.productId": mongoose.Types.ObjectId(req.params.productId) },
         { $pull: { cart:{productId: mongoose.Types.ObjectId(req.params.productId)} }}
-        // {multi: true}
       )
         .then((result) => {
           res.status(200).send(new ResponseApi(200, "success", result));
