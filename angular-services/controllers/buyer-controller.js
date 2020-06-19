@@ -83,7 +83,9 @@ exports.addToCart = async (req, res, next) => {
             $push: {
               cart: {
                 productId: product._id,
+                name: product.name,
                 price: product.price,
+                sellerId: product.userId,
                 quantity: 1,
               },
             },
@@ -103,12 +105,12 @@ exports.addToCart = async (req, res, next) => {
           },
           { $inc: { "cart.$.quantity": 1 } }
         )
-          .then((result) => {
-            res.status(200).send(new ResponseApi(200, "success", result));
-          })
-          .catch((err) => {
-            res.status(500).send(new ResponseApi(500, "error", err));
-          });
+        .then((result) => {
+        res.status(200).send(new ResponseApi(200, "success", result));
+        })
+        .catch((err) => {
+        res.status(500).send(new ResponseApi(500, "error", err));
+        });
       }
     })
     .then((result) => {
