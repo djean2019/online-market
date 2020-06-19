@@ -5,16 +5,11 @@ const mongoose = require('mongoose');
 exports.createOrder = (req, res, next) => {
     Order.create(req.body)
         .then(result => {
-            User.findById(req.params.buyerId).then(result => {
-                User.updateOne({ _id: mongoose.Types.ObjectId(req.params.buyerId) }, { $set: { cart: [] } })
-                    .then(result => {
-                        res.status(200).send(result);
-                    })
-                    .catch(err => {
-                        res.status(500).send({errMsg: err});
-                    });
-            });
-            res.status(201).send({ id: result._id });
+            User.updateOne({ _id: mongoose.Types.ObjectId(req.params.buyerId) }, 
+                { $set: { cart: [] } ,  $inc:{ point: 100}}, {upsert: true} )
+                .then(result => {
+                    res.status(200).send(result);
+                })
         })
         .catch(err => {
             res.status(500).send({ errMsg: err });

@@ -36,13 +36,6 @@ const user = {
     default: Date.now,
   },
   cart: [],
-  // 'cart':{
-  //     'productId': {
-  //         type: mongoose.Schema.Types.ObjectId, ref: 'product'
-  //     },
-  //     'price': Number,
-  //     'quantity': Number
-  // },
   role: {
     type: String,
     default: "BUYER",
@@ -51,37 +44,9 @@ const user = {
     type: Boolean,
     default: false,
   },
-  address: [
-    {
-      billing: {
-        street: {
-          type: String,
-          default: "...",
-        },
-        state: {
-          type: String,
-          default: "...",
-        },
-        zip: {
-          type: String,
-          default: "...",
-        },
-      },
-      shipping: {
-        street: {
-          type: String,
-          default:"..."
-        },
-        state: {
-          type: String,
-          default:"..."
-        },
-        zip: {
-          type: String,
-          default:"..."
-        },
-      },
-    }]
+  point: {
+    type: Number
+  }
 }
 
 
