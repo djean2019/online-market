@@ -10,7 +10,8 @@
   <a mat-button [routerLink]="['/register']">Signup</a> -->
 
   <!-- Show this for logged out users -->
-  <a *appShowAuthed="false" mat-button [routerLink]="['/']">
+  <a mat-button [routerLink]="['/']" routerLinkActive="active">
+    <mat-icon>home</mat-icon>
     Home
   </a>
   <a
@@ -19,6 +20,7 @@
     [routerLink]="['/login']"
     routerLinkActive="active"
   >
+    <mat-icon>login</mat-icon>
     Sign in
   </a>
   <a
@@ -27,6 +29,7 @@
     [routerLink]="['/register']"
     routerLinkActive="active"
   >
+    <mat-icon>person_pin_circle</mat-icon>
     Sign up
   </a>
 
@@ -36,22 +39,14 @@
     mat-button
     [routerLink]="['/register']"
     routerLinkActive="active"
-    [routerLinkActiveOptions]="{ exact: true }"
   >
-    Home
-  </a>
-
-  <a
-    *appShowAuthed="true"
-    mat-button
-    [routerLink]="['/register']"
-    routerLinkActive="active"
-  >
+    <mat-icon>account_circle</mat-icon>
     <img [src]="currentUser.image" *ngIf="currentUser.image" class="user-pic" />
     Welcome {{ currentUser.username }}！
   </a>
 
   <a *appShowAuthed="true" mat-button (click)="logout()">
+    <mat-icon>logout</mat-icon>
     Logout
   </a>
 
