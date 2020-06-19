@@ -1,61 +1,75 @@
 <mat-toolbar color="primary" class="mat-elevation-z6">
-  <button mat-button (click)="toggleSidenav.emit()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <a mat-button [routerLink]="['/']">XDD Market</a>
-  <span class="fill-remaining-space"></span>
+    <button
+        mat-button
+        matTooltip="Click to Open/Close the Menu List After Signin"
+        (click)="toggleSidenav.emit()"
+        (click)="changeMeanu()"
+    >
+        <mat-icon *appShowAuthed="false">menu</mat-icon>
+        <mat-icon *appShowAuthed="true">{{ menu }}</mat-icon>
+    </button>
+    <!-- <a mat-button matTooltip="Online Market System Base On Angular" [routerLink]="['/']"
+        >XDD Market</a
+    > -->
+    <a mat-button [routerLink]="['/']">XDD Market</a>
+    <span class="fill-remaining-space"></span>
 
-  <!-- <a mat-button [routerLink]="['/']">Home</a>
+    <!-- <a mat-button [routerLink]="['/']">Home</a>
   <a mat-button [routerLink]="['/login']">Signin</a>
   <a mat-button [routerLink]="['/register']">Signup</a> -->
 
-  <!-- Show this for logged out users -->
-  <a mat-button [routerLink]="['/']" routerLinkActive="active">
-    <mat-icon>home</mat-icon>
-    Home
-  </a>
-  <a
-    *appShowAuthed="false"
-    mat-button
-    [routerLink]="['/login']"
-    routerLinkActive="active"
-  >
-    <mat-icon>login</mat-icon>
-    Sign in
-  </a>
-  <a
-    *appShowAuthed="false"
-    mat-button
-    [routerLink]="['/register']"
-    routerLinkActive="active"
-  >
-    <mat-icon>person_pin_circle</mat-icon>
-    Sign up
-  </a>
+    <!-- Show this for logged out users -->
+    <a mat-button matTooltip="Click button to Home" [routerLink]="['/']" routerLinkActive="active">
+        <mat-icon>home</mat-icon>
+        <span class="button-span" *ngIf="!isScreenSmall()">Home</span>
+    </a>
+    <a
+        *appShowAuthed="false"
+        mat-button
+        matTooltip="Click button to Sign in"
+        [routerLink]="['/login']"
+        routerLinkActive="active"
+    >
+        <mat-icon>login</mat-icon>
+        <span class="button-span" *ngIf="!isScreenSmall()">Sign in</span>
+    </a>
+    <a
+        *appShowAuthed="false"
+        mat-button
+        matTooltip="Click button to Sign up"
+        [routerLink]="['/register']"
+        routerLinkActive="active"
+    >
+        <mat-icon>person_pin_circle</mat-icon>
+        <span class="button-span" *ngIf="!isScreenSmall()">Sign up</span>
+    </a>
 
-  <!-- Show this for logged in users -->
-  <a
-    *appShowAuthed="true"
-    mat-button
-    [routerLink]="['/register']"
-    routerLinkActive="active"
-  >
-    <mat-icon>account_circle</mat-icon>
-    <img [src]="currentUser.image" *ngIf="currentUser.image" class="user-pic" />
-    Welcome {{ currentUser.username }}！
-  </a>
+    <!-- Show this for logged in users -->
+    <a
+        *appShowAuthed="true"
+        mat-button
+        matTooltip="Welcome, {{ currentUser.username }}"
+        [routerLink]="['/register']"
+        routerLinkActive="active"
+    >
+        <mat-icon>account_circle</mat-icon>
+        <img [src]="currentUser.image" *ngIf="currentUser.image" class="user-pic" />
+        <span class="button-span" *ngIf="!isScreenSmall()"
+            >Welcome, {{ currentUser.username }}</span
+        >
+    </a>
 
-  <a *appShowAuthed="true" mat-button (click)="logout()">
-    <mat-icon>logout</mat-icon>
-    Logout
-  </a>
+    <a *appShowAuthed="true" matTooltip="Click button to Logout" mat-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span class="button-span" *ngIf="!isScreenSmall()">Logout</span>
+    </a>
 
-  <mat-menu #appMenu="matMenu">
-    <button mat-menu-item>Settings</button>
-    <button mat-menu-item>Help</button>
-  </mat-menu>
+    <mat-menu #appMenu="matMenu">
+        <button mat-menu-item>Settings</button>
+        <button mat-menu-item>Help</button>
+    </mat-menu>
 
-  <button mat-icon-button [matMenuTriggerFor]="appMenu">
-    <mat-icon>more_vert</mat-icon>
-  </button>
+    <button mat-icon-button [matMenuTriggerFor]="appMenu">
+        <mat-icon>more_vert</mat-icon>
+    </button>
 </mat-toolbar>
