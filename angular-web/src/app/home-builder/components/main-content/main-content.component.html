@@ -1,11 +1,11 @@
 <mat-card>
-    <div [hidden]="!loading">
-        Loading products...
-    </div>
-
-    <div [hidden]="loading || results.length">
-        No products are here... yet.
-    </div>
+    <!-- <mat-card class="title-card" *ngIf="loading">
+        Loading Products...
+    </mat-card> -->
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+    <mat-card class="title-card" *ngIf="!loading && results.length <= 0">
+        There is No Products are here ...yet!
+    </mat-card>
     <div class="product-container">
         <div class="grid-tile" *ngFor="let product of results">
             <mat-card class="grid-card">

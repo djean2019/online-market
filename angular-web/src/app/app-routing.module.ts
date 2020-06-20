@@ -9,6 +9,7 @@ import { AuthGuard } from "./core/services/auth-guard.service";
 import { CartComponent } from "./home-builder/components/cart/cart.component";
 import { AuthComponent } from "./auth/auth.component";
 import { AddProductComponent } from "./seller-builder/components/products/add-product.component";
+import { AdminComponent } from "./home-builder/components/admin/admin.component";
 
 const routes: Routes = [
     {
@@ -44,6 +45,11 @@ const routes: Routes = [
             {
                 path: "manageProducts",
                 component: ProductsComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: "manageSellers",
+                component: AdminComponent,
                 canActivate: [AuthGuard],
             },
         ],

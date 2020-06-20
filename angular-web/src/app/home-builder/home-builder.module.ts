@@ -15,6 +15,8 @@ import { CoreModule } from "../core";
 import { CartComponent } from "./components/cart/cart.component";
 import { AuthGuard } from "../core/services/auth-guard.service";
 import { NoAuthGuard } from "../auth/no-auth-guard.service";
+import { AdminComponent } from "./components/admin/admin.component";
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 @NgModule({
     declarations: [
@@ -24,6 +26,7 @@ import { NoAuthGuard } from "../auth/no-auth-guard.service";
         ToolBarComponent,
         FooterComponent,
         CartComponent,
+        AdminComponent,
     ],
     imports: [
         CommonModule,
@@ -33,6 +36,7 @@ import { NoAuthGuard } from "../auth/no-auth-guard.service";
         AuthModule,
         SharedModule,
         CoreModule,
+        MatSlideToggleModule,
     ],
     providers: [AuthGuard, NoAuthGuard],
 })

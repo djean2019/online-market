@@ -1,0 +1,36 @@
+<mat-card>
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+    <mat-card class="title-card" *ngIf="!loading && results.length <= 0">
+        There is No Users are here ...yet!
+    </mat-card>
+    <mat-card class="title-card">
+        <h1 class="text-xs-center title-size">Approval Seller to Add Products</h1>
+    </mat-card>
+    <div *ngFor="let user of results" class="toogle-card">
+        <!-- <input type="hidden" value="{{ user.role }}" #userole /> -->
+        <mat-card>
+            <h2>
+                Username:<em>{{ user.username }}</em> , Email: <em>{{ user.email }}</em>
+            </h2>
+            <mat-label>Role:</mat-label>
+            <mat-icon>{{
+                user.role == "BUYER"
+                    ? "shop"
+                    : user.role == "SELLER"
+                    ? "store"
+                    : "admin_panel_settings"
+            }}</mat-icon>
+            <mat-label>{{ user.role }} </mat-label>
+            <input type="hidden" value="{{ user._id }}" #userid />
+            <input type="hidden" value="{{ user.isApprouved }}" #userisapp />
+            <div class="toogle-mat">
+                <mat-slide-toggle
+                    color="primary"
+                    [checked]="userisapp.value"
+                    (click)="changeApproStatus(user.isApprouved, userid.value)"
+                    *ngIf="user.role == 'SELLER'"
+                ></mat-slide-toggle>
+            </div>
+        </mat-card>
+    </div>
+</mat-card>
