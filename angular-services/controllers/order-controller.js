@@ -3,19 +3,59 @@ const User = require("../models/user-model").userModel;
 const mongoose = require("mongoose");
 const { createReceipt } = require("../util/receipt");
 
+// exports.createOrder = (req, res, next) => {
+//     Order.create(req.body)
+//         .then(result => {
+//             createReceipt(result, "orderReceipt.pdf");
+//             User.updateOne({ _id: mongoose.Types.ObjectId(req.params.buyerId) }, 
+//                 { $set: { cart: [] } ,  $inc:{ point: 100}}, {upsert: true} )
+//                 .then(result => {
+//                     res.status(200).send(result);
+//                 })
+//         })
+//         .catch(err => {
+//             res.status(500).send({ errMsg: err });
+//         });
+// };
 exports.createOrder = (req, res, next) => {
-    Order.create(req.body)
-        .then(result => {
-            createReceipt(result, "orderReceipt.pdf");
-            User.updateOne({ _id: mongoose.Types.ObjectId(req.params.buyerId) }, 
-                { $set: { cart: [] } ,  $inc:{ point: 100}}, {upsert: true} )
-                .then(result => {
-                    res.status(200).send(result);
-                })
+    User.findById(req.params.buyerId)
+     .then(result => { 
+         Order.updateOne({items: {$size : 0}},
+            {$set : {
+                        items : result.cart, 
+                        status: "Pending", 
+                        payment: "Credit Cart"},
+                        "user.userId": result._id,
+                        "user.name": result.username,
+                        address: [
+                            {
+                              "billing": {
+                                "street": "1000 N 4TH ST",
+                                "city": "FAIRFIELD",
+                                "state": "IA",
+                                "zip": "52557"
+                              },
+                              "shipping": {
+                                "street": "1000 N 4TH ST",
+                                "city": "FAIRFIELD",
+                                "state": "IA",
+                                "zip": "52557"
+                              }
+                            }]
+                    }, {upsert: true}
+            )
+            .then(result => {
+                // createReceipt(result, "orderReceipt.pdf");
+                User.updateOne({ _id: mongoose.Types.ObjectId(req.params.buyerId) }, 
+                    { $set: { cart: [] } ,  $inc:{ point: 100}}, {upsert: true} )
+                    .then(result => {
+                        res.status(200).send(result);
+                    })
+            })
+            .catch(err => {
+                res.status(500).send({ errMsg: err });
+            });
         })
-        .catch(err => {
-            res.status(500).send({ errMsg: err });
-        });
 };
 
 exports.getById = (req, res, next) => {
