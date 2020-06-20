@@ -2,12 +2,13 @@ const Order = require("../models/order-model").orderModel;
 const User = require("../models/user-model").userModel;
 const mongoose = require("mongoose");
 const { createReceipt } = require("../util/receipt");
+const ResponseApi = require("../models/response");
 
 // exports.createOrder = (req, res, next) => {
 //     Order.create(req.body)
 //         .then(result => {
 //             createReceipt(result, "orderReceipt.pdf");
-//             User.updateOne({ _id: mongoose.Types.ObjectId(req.params.buyerId) }, 
+//             User.updateOne({ _id: mongoose.Types.ObjectId(req.params.buyerId) },
 //                 { $set: { cart: [] } ,  $inc:{ point: 100}}, {upsert: true} )
 //                 .then(result => {
 //                     res.status(200).send(result);
@@ -18,44 +19,17 @@ const { createReceipt } = require("../util/receipt");
 //         });
 // };
 exports.createOrder = (req, res, next) => {
-    User.findById(req.params.buyerId)
-     .then(result => { 
-         Order.updateOne({items: {$size : 0}},
-            {$set : {
-                        items : result.cart, 
-                        status: "Pending", 
-                        payment: "Credit Cart"},
-                        "user.userId": result._id,
-                        "user.name": result.username,
-                        address: [
-                            {
-                              "billing": {
-                                "street": "1000 N 4TH ST", // req.body.street
-                                "city": "FAIRFIELD",    // req.body.city
-                                "state": "IA",        // req.body.state
-                                "zip": "52557"           // req.body.zip
-                              },
-                              "shipping": {
-                                "street": "1000 N 4TH ST",
-                                "city": "FAIRFIELD",
-                                "state": "IA",
-                                "zip": "52557"
-                              }
-                            }]
-                    }, {upsert: true}
-            )
-            .then(result => {
-                // createReceipt(result, "orderReceipt.pdf");
-                User.updateOne({ _id: mongoose.Types.ObjectId(req.params.buyerId) }, 
-                    { $set: { cart: [] } ,  $inc:{ point: 100}}, {upsert: true} )
-                    .then(result => {
-                        res.status(200).send(result);
-                    })
-            })
-            .catch(err => {
-                res.status(500).send({ errMsg: err });
-            });
-        })
+    console.log(req.body);
+    Order.create(req.body).then(result => {
+        createReceipt(result, "orderReceipt.pdf");
+        User.updateOne(
+            { _id: mongoose.Types.ObjectId(req.params.buyerId) },
+            { $set: { cart: [] }, $inc: { point: 100 } },
+            { upsert: true }
+        ).then(result => {
+            res.status(200).send(result);
+        });
+    });
 };
 
 exports.getById = (req, res, next) => {
@@ -69,53 +43,54 @@ exports.getById = (req, res, next) => {
 };
 
 exports.list = (req, res, next) => {
-    Order.find({"user.userId":mongoose.Types.ObjectId(req.params.buyerId)},{})
+    Order.find({ "user.userId": mongoose.Types.ObjectId(req.params.buyerId) }, {})
+        .then(result => {
+            res.status(200).send(new ResponseApi(200, "success", result));
+        })
+        .catch(err => {
+            res.status(500).send(new ResponseApi(500, "error", err));
+        });
+};
+
+exports.cancelById = async (req, res, next) => {
+    const orderStatus = await Order.find({
+        $and: [{ _id: mongoose.Types.ObjectId(req.params.orderId) }, { status: "Pending" }],
+    });
+    if (orderStatus.length === 0) {
+        res.status(401).send({
+            errors: { "Cannot cancel this order": ["It has already been shipped."] },
+        });
+    } else {
+        Order.findById(req.params.orderId)
+            .then(order => {
+                User.updateOne({ _id: order.user.userId }, { $inc: { point: -100 } }).then(
+                    result => {
+                        Order.findByIdAndDelete(req.params.orderId)
+                            .then(result => {
+                                res.status(200).send({ result });
+                            })
+                            .catch(err => {
+                                res.status(500).send({ errMsg: err });
+                            });
+                        // res.status(200).send(result);
+                    }
+                );
+            })
+            .catch(err => {
+                res.status(500).send({ errMsg: err });
+            });
+    }
+};
+
+exports.review = (req, res, next) => {
+    Order.updateOne(
+        { _id: mongoose.Types.ObjectId(req.params.orderId) },
+        { $set: { review: req.body.review } }
+    )
         .then(result => {
             res.status(200).send(result);
         })
         .catch(err => {
             res.status(500).send({ errMsg: err });
         });
-}
-
-exports.cancelById = async (req, res, next) => {
-    const orderStatus = await Order.find({$and:[{"_id":mongoose.Types.ObjectId(req.params.orderId)},{"status":"Pending"}]});
-    if(orderStatus.length===0){
-        res.status(401).send({
-            errors: { "Cannot cancel this order": ["It has already been shipped."] },
-          }); 
-    } else {
-        Order.findById(req.params.orderId)
-            .then(order => {
-                User.updateOne({ _id: order.user.userId }, 
-                { $inc:{ point: -100} } 
-                )
-                .then(result => {
-                    Order.findByIdAndDelete(req.params.orderId)
-                        .then(result => {
-                            res.status(200).send({result});
-            
-                        })
-                        .catch(err => {
-                            res.status(500).send({ errMsg: err });
-                        });
-                    // res.status(200).send(result);
-                })
-            })
-            .catch(err => {
-                res.status(500).send({ errMsg: err });
-            });
-    }
-}
-
-exports.review = (req, res, next) => {
-    Order.updateOne({_id:mongoose.Types.ObjectId(req.params.orderId)},
-        {$set: {review:req.body.review}}
-    )
-    .then(result => {
-        res.status(200).send(result);
-    })
-    .catch(err => {
-        res.status(500).send({errMsg: err});
-    })
-}
+};

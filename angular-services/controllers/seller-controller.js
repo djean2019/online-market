@@ -71,13 +71,13 @@ exports.listBySeller = (req, res, next) => {
 };
 
 exports.getOrders = (req, res, next) => {
-    Order.find({ "items.sellerId": req.params.sellerId })
+    Order.find({ items: { $elemMatch: { userId: req.params.sellerId } } })
         .then(result => {
-            res.status(200).send(result);
+            res.status(200).send(new ResponseApi(200, "success", result));
         })
         .catch(err => {
             console.log(err);
-            res.status(500).send({ errMsg: err });
+            res.status(500).send(new ResponseApi(500, "error", err));
         });
 };
 

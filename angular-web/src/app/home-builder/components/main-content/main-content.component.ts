@@ -57,7 +57,7 @@ export class MainContentComponent implements OnInit {
             )
             .subscribe(data => this.router.navigateByUrl("/manageCart"));
     }
-    buy() {
+    buy(prodId) {
         this.userService.isAuthenticated
             .pipe(
                 concatMap(authenticated => {
@@ -66,6 +66,8 @@ export class MainContentComponent implements OnInit {
                         this.router.navigateByUrl("/login");
                         return of(null);
                     }
+
+                    this.router.navigateByUrl("/placeAnOrder?id=" + prodId);
                 })
             )
             .subscribe();

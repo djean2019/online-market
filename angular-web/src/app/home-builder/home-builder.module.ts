@@ -17,6 +17,7 @@ import { AuthGuard } from "../core/services/auth-guard.service";
 import { NoAuthGuard } from "../auth/no-auth-guard.service";
 import { AdminComponent } from "./components/admin/admin.component";
 import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { BuyerBuilderModule } from "../buyer-builder/buyer-builder.module";
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
         HomeBuilderRoutingModule,
         MaterialModule,
         SellerBuilderModule,
+        BuyerBuilderModule,
         AuthModule,
         SharedModule,
         CoreModule,

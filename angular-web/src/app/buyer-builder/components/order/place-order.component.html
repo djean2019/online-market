@@ -1,0 +1,42 @@
+<mat-card>
+    <h1 class="text-xs-center title-size">Place an Order</h1>
+    <!-- <app-list-errors [errors]="errors"></app-list-errors> -->
+    <!-- {{ this.authForm.value | json }} -->
+    <form [formGroup]="authForm" (ngSubmit)="submitForm()" class="form-container">
+        <fieldset [disabled]="isSubmitting" class="fieldset-style">
+            <mat-form-field>
+                <mat-label>BillingAddress</mat-label>
+                <input matInput formControlName="billingAddress" type="text" />
+                <mat-error *ngIf="billingAddressFormControl.hasError('required')">
+                    BillingAddress is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>ShippingAddress</mat-label>
+                <input matInput formControlName="shippingAddress" type="text" />
+                <mat-error *ngIf="shippingAddressFormControl.hasError('required')">
+                    ShippingAddress is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Select an Payment</mat-label>
+                <mat-select formControlName="payment">
+                    <mat-option value="PayPal">PayPal</mat-option>
+                    <mat-option value="Credit card">Credit card</mat-option>
+                </mat-select>
+                <mat-error *ngIf="paymentFormControl.hasError('required')">
+                    Payment is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <button
+                mat-raised-button
+                color="primary"
+                class="sign-button"
+                [disabled]="!authForm.valid"
+                type="submit"
+            >
+                Place
+            </button>
+        </fieldset>
+    </form>
+</mat-card>

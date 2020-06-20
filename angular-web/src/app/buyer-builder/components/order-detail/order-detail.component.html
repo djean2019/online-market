@@ -1,0 +1,46 @@
+<mat-card>
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+    <mat-card class="title-card">
+        <h1 class="text-xs-center title-size">My Orders</h1>
+    </mat-card>
+    <mat-card class="title-card" *ngIf="!loading && results.length <= 0">
+        There is No Orders are here ...yet!
+    </mat-card>
+    <div class="product-container toogle-card">
+        <div *ngFor="let order of results" class="grid-tile">
+            <mat-divider></mat-divider>
+            <!-- <input type="hidden" value="{{ user.role }}" #userole /> -->
+            <mat-card class="grid-card">
+                <h2>
+                    Order ID:
+                    <em>{{ order._id }}</em>
+                </h2>
+                <h3>
+                    Product:
+                    <em *ngFor="let item of order.items"
+                        >{{ item.name }}, Price: {{ item.price }}, Qty: 1</em
+                    >
+                </h3>
+                <h3>
+                    ShippingAddress: <em>{{ order.shippingAddress }}</em>
+                </h3>
+                <h3>
+                    Payment: <em>{{ order.payment }}</em>
+                </h3>
+                <h3>
+                    Status: <em>{{ order.status }}</em>
+                </h3>
+
+                <mat-card-actions *ngIf="order.status == 'Pending'">
+                    <input type="hidden" value="{{ order._id }}" #prodId />
+                    <button mat-raised-button color="primary" (click)="cancelOrder(prodId.value)">
+                        Cancel Order
+                    </button>
+                </mat-card-actions>
+                <mat-card-actions *ngIf="order.status != 'Pending'">
+                    Order status is {{ order.status }}, you can't cancel it!
+                </mat-card-actions>
+            </mat-card>
+        </div>
+    </div>
+</mat-card>

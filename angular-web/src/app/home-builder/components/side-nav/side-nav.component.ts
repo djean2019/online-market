@@ -29,6 +29,10 @@ export class SideNavComponent implements OnInit {
                     name: "Shopping Cart",
                     url: "manageCart",
                 },
+                {
+                    name: "Manage Orders",
+                    url: "manageOrders",
+                },
             ];
             if (this.currentUser.role === "SELLER") {
                 this.links.push(
@@ -37,15 +41,12 @@ export class SideNavComponent implements OnInit {
                         url: "manageProducts",
                     },
                     {
-                        name: "Manage Orders",
-                        url: "manageOrders",
+                        name: "My Product's Order",
+                        url: "manageSellerOrder",
                     }
                 );
             } else if (this.currentUser.role === "BUYER") {
-                this.links.push({
-                    name: "My Orders",
-                    url: "manageOrders",
-                });
+                //this.links.push();
             } else {
                 this.links.push(
                     {
