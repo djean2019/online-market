@@ -1,17 +1,18 @@
 <mat-card>
-    <mat-card class="title-card">
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
+    <input type="hidden" value="{{ currentUser.isApprouved }}" #isApprouved />
+    <mat-card class="title-card" *ngIf="!isApprouved.value">
         <input type="hidden" value="" #prodId />
         <a mat-raised-button color="primary" [routerLink]="['/AddProduct']">
             Add Product
         </a>
     </mat-card>
-    <div [hidden]="!loading">
-        Loading products...
-    </div>
-
-    <div [hidden]="loading || results.length">
-        No products are here... yet.
-    </div>
+    <!-- <mat-card class="title-card" *ngIf="loading">
+        Loading Products...
+    </mat-card> -->
+    <mat-card class="title-card" *ngIf="!loading && results.length <= 0">
+        There is No Products are here ...yet!
+    </mat-card>
     <div class="product-container">
         <div class="grid-tile" *ngFor="let cart of results">
             <mat-divider></mat-divider>

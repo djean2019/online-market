@@ -1,4 +1,5 @@
 <mat-card>
+    <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
     <mat-card class="title-card">
         <input type="hidden" value="" #prodId />
         <button mat-raised-button color="primary" class="top-button" (click)="removeAll()">
@@ -8,14 +9,12 @@
             Place All Products
         </button>
     </mat-card>
-
-    <div [hidden]="!loading">
-        Loading cart...
-    </div>
-
-    <div [hidden]="loading || results.length">
-        No products are here... yet.
-    </div>
+    <!-- <mat-card class="title-card" *ngIf="loading">
+        Loading Cart...
+    </mat-card> -->
+    <mat-card class="title-card" *ngIf="!loading && results.length <= 0">
+        There is No Products are here ...yet!
+    </mat-card>
     <div class="product-container">
         <div class="grid-tile" *ngFor="let cart of results">
             <mat-card class="grid-card">
