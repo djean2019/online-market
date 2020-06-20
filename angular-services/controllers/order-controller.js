@@ -6,7 +6,6 @@ const { createReceipt } = require("../util/receipt");
 exports.createOrder = (req, res, next) => {
     Order.create(req.body)
         .then(result => {
-            // console.log(result);
             createReceipt(result, "orderReceipt.pdf");
             User.updateOne({ _id: mongoose.Types.ObjectId(req.params.buyerId) }, 
                 { $set: { cart: [] } ,  $inc:{ point: 100}}, {upsert: true} )
@@ -39,23 +38,6 @@ exports.list = (req, res, next) => {
         });
 }
 
-// exports.cancelById = async (req, res, next) => {
-//     const orderStatus = await Order.find({$and:[{"_id":mongoose.Types.ObjectId(req.params.orderId)},{"status":"Pending"}]});
-//     if(orderStatus.length===0){
-//         res.status(401).send({
-//             errors: { "Cannot cancel this order": ["It has already been shipped."] },
-//           }); 
-//     } else {
-//         Order.findByIdAndDelete(req.params.orderId)
-//             .then(result => {
-//                 res.status(200).send({});
-
-//             })
-//             .catch(err => {
-//                 res.status(500).send({ errMsg: err });
-//             });
-//     }
-// }
 exports.cancelById = async (req, res, next) => {
     const orderStatus = await Order.find({$and:[{"_id":mongoose.Types.ObjectId(req.params.orderId)},{"status":"Pending"}]});
     if(orderStatus.length===0){

@@ -100,7 +100,7 @@ module.exports = {
       price: 50,
       imageUrl: "https://www.valuecoders.com/common/images-2/reactjs-og.png",
       description: "Nice reactive learning book",
-      userId: "5eeb587c2d00fe19cf34b4d5",
+      userId: "5eeb587c2d00fe19cf34b4d4",
     });
     let pro4 = new ProductModel({
       _id: mongoose.Types.ObjectId("5eeb9315af3c3b2bca59ffa7"),
