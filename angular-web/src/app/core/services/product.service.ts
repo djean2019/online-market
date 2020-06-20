@@ -94,4 +94,9 @@ export class ProductService {
         const route = "/buyer/" + buyId + "/" + prodId;
         return this.apiService.post(route);
     }
+
+    placeOrder(buyId): Observable<ApiResponse> {
+        const route = "/orders/" + buyId;
+        return this.apiService.post(route);
+    }
 }

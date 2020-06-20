@@ -69,4 +69,24 @@ export class CartComponent implements OnInit {
             )
             .subscribe();
     }
+
+    placeOrder() {
+        this.userService.isAuthenticated
+            .pipe(
+                concatMap(authenticated => {
+                    // Not authenticated? Push to login screen
+                    if (!authenticated) {
+                        this.router.navigateByUrl("/login");
+                        return of(null);
+                    }
+
+                    return this.productService.placeOrder(this.currentUser._id).pipe(
+                        tap(data => {
+                            console.log(data);
+                        })
+                    );
+                })
+            )
+            .subscribe();
+    }
 }
