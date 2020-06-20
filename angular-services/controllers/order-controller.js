@@ -4,22 +4,32 @@ const mongoose = require("mongoose");
 const { createReceipt } = require("../util/receipt");
 const ResponseApi = require("../models/response");
 
+// exports.createOrder = (req, res, next) => {
+//     Order.create(req.body)
+//         .then(result => {
+//             createReceipt(result, "orderReceipt.pdf");
+//             User.updateOne({ _id: mongoose.Types.ObjectId(req.params.buyerId) },
+//                 { $set: { cart: [] } ,  $inc:{ point: 100}}, {upsert: true} )
+//                 .then(result => {
+//                     res.status(200).send(result);
+//                 })
+//         })
+//         .catch(err => {
+//             res.status(500).send({ errMsg: err });
+//         });
+// };
 exports.createOrder = (req, res, next) => {
     console.log(req.body);
-    Order.create(req.body)
-        .then(result => {
-            createReceipt(result, "orderReceipt.pdf");
-            User.updateOne(
-                { _id: mongoose.Types.ObjectId(req.params.buyerId) },
-                { $set: { cart: [] }, $inc: { point: 100 } },
-                { upsert: true }
-            ).then(result => {
-                res.status(200).send(result);
-            });
-        })
-        .catch(err => {
-            res.status(500).send({ errMsg: err });
+    Order.create(req.body).then(result => {
+        createReceipt(result, "orderReceipt.pdf");
+        User.updateOne(
+            { _id: mongoose.Types.ObjectId(req.params.buyerId) },
+            { $set: { cart: [] }, $inc: { point: 100 } },
+            { upsert: true }
+        ).then(result => {
+            res.status(200).send(result);
         });
+    });
 };
 
 exports.getById = (req, res, next) => {

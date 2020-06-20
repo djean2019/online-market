@@ -2,10 +2,12 @@
     <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
     <mat-card class="title-card">
         <input type="hidden" value="" #prodId />
+        <!-- input buyerId I add -->
+        <!-- <input type="hidden" value="{{ currentUser._id }}" #buyerId /> -->
         <button mat-raised-button color="primary" class="top-button" (click)="removeAll()">
             Remove All Products
         </button>
-        <button mat-raised-button color="primary" class="top-button">
+        <button mat-raised-button color="primary" class="top-button"  (click)=placeOrder()> 
             Place All Products
         </button>
     </mat-card>
