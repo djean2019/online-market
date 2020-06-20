@@ -82,7 +82,8 @@ export class CartComponent implements OnInit {
 
                     return this.productService.placeOrder(this.currentUser._id).pipe(
                         tap(data => {
-                            console.log(data);
+                            // console.log(data);
+                            this.runQuery()
                         })
                     );
                 })
