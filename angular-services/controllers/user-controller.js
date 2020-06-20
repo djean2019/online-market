@@ -1,6 +1,5 @@
 const User = require("../models/user-model").userModel;
-const Product = require("../models/product-model").productModel;
-const mongoose = require("mongoose");
+const ResponseApi = require("../models/response");
 const bcrypt = require("../util/bcrypt");
 const jwt = require("jsonwebtoken");
 const config = require("../config/jwt-properties");
@@ -28,12 +27,12 @@ exports.insert = (req, res, next) => {
 exports.getById = (req, res, next) => {
     User.findById(req.params.userId)
         .then(result => {
-            res.status(200).send(result);
+            res.status(200).send(new ResponseApi(200, "success", result));
             console.log(result);
         })
         .catch(err => {
             console.log(err);
-            res.status(500).send({ errMsg: err });
+            res.status(500).send(new ResponseApi(500, "error", err));
         });
 };
 
@@ -46,18 +45,18 @@ exports.patchById = (req, res, next) => {
             return user.save();
         })
         .then(result => {
-            res.status(204).send({});
+            res.status(204).send(new ResponseApi(200, "success", {}));
         });
 };
 
 exports.list = (req, res, next) => {
     User.find()
         .then(result => {
-            res.status(200).send(result);
+            res.status(200).send(new ResponseApi(200, "success", result));
         })
         .catch(err => {
             console.log(err);
-            res.status(500).send({ errMsg: err });
+            res.status(500).send(new ResponseApi(500, "error", err));
         });
 };
 
@@ -68,6 +67,6 @@ exports.removeById = (req, res, next) => {
         })
         .catch(err => {
             console.log(err);
-            res.status(500).send({ errMsg: err });
+            res.status(500).send(new ResponseApi(500, "error", err));
         });
 };
