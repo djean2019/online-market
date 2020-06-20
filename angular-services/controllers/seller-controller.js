@@ -29,7 +29,9 @@ exports.patchById = (req, res, next) => {
     Product.findById(req.params.productId)
         .then(product => {
             for (let i in req.body) product[i] = req.body[i];
-            return product.save();
+            product.save().then(result => {
+                res.status(200).send(result);
+            });
         })
         .catch(err => {
             console.log(err);

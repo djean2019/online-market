@@ -23,37 +23,41 @@ export class SideNavComponent implements OnInit {
     ngOnInit() {
         this.userService.currentUser.subscribe(userData => {
             this.currentUser = userData;
-            this.links = [];
+            this.links = [{ name: "Home", url: "" }];
             if (this.currentUser.role === "SELLER") {
                 this.links.push(
                     {
-                        name: "Products",
+                        name: "My Products",
                         url: "manageProducts",
                     },
                     {
-                        name: "Orders",
+                        name: "Manage Orders",
                         url: "manageOrders",
+                    },
+                    {
+                        name: "Shopping Cart",
+                        url: "manageCart",
                     }
                 );
             } else if (this.currentUser.role === "BUYER") {
                 this.links.push(
                     {
-                        name: "Orders",
+                        name: "My Orders",
                         url: "manageOrders",
                     },
                     {
-                        name: "ShoppingCart",
+                        name: "Shopping Cart",
                         url: "manageCart",
                     }
                 );
             } else {
                 this.links.push(
                     {
-                        name: "Sellers",
+                        name: "Manage Sellers",
                         url: "manageSellers",
                     },
                     {
-                        name: "Reviews",
+                        name: "Manage Reviews",
                         url: "manageReviews",
                     }
                 );

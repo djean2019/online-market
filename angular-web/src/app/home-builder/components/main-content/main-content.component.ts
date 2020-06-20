@@ -53,21 +53,9 @@ export class MainContentComponent implements OnInit {
                             console.log(data);
                         })
                     );
-                    //     // Otherwise, unfavorite the article
-                    // } else {
-                    //     return this.articlesService.unfavorite(this.article.slug).pipe(
-                    //         tap(
-                    //             data => {
-                    //                 this.isSubmitting = false;
-                    //                 this.toggle.emit(false);
-                    //             },
-                    //             err => (this.isSubmitting = false)
-                    //         )
-                    //     );
-                    // }
                 })
             )
-            .subscribe();
+            .subscribe(data => this.router.navigateByUrl("/manageCart"));
     }
     buy() {
         this.userService.isAuthenticated

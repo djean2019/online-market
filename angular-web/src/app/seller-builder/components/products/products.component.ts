@@ -39,4 +39,10 @@ export class ProductsComponent implements OnInit {
             this.results = data.result;
         });
     }
+
+    deleteProduct(prodId) {
+        this.loading = true;
+        this.results = [];
+        this.productService.deleteProduct(prodId).subscribe(data => this.runQuery());
+    }
 }

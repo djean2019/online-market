@@ -27,3 +27,32 @@ body {
     text-align: center;
     list-style-type: none;
 }
+
+/* product */
+.product-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.grid-tile {
+    width: 30%;
+    min-width: 250px;
+}
+.grid-card {
+    max-width: 400px;
+    max-height: 300px;
+    min-height: 350px;
+    margin: 10px;
+    overflow: scroll;
+}
+
+.grid-header-image {
+    background-image: url("https://material.angular.io/assets/img/examples/shiba1.jpg");
+    background-size: cover;
+}
+
+.title-card {
+    text-align: center;
+    vertical-align: middle;
+}

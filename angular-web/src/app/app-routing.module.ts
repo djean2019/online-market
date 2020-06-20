@@ -32,7 +32,12 @@ const routes: Routes = [
                 canActivate: [AuthGuard],
             },
             {
-                path: "addProduct",
+                path: "AddProduct",
+                component: AddProductComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: "EditProduct",
                 component: AddProductComponent,
                 canActivate: [AuthGuard],
             },
