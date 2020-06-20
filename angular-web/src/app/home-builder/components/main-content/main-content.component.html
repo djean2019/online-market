@@ -25,9 +25,9 @@
                     <input type="hidden" value="{{ product._id }}" #prodId />
                     <button
                         mat-raised-button
+                        (click)="add(product._id)"
                         color="primary"
                         matTooltip="Add to Shopping Cart"
-                        (click)="addToCartt(product._id)"
                     >
                         Cart
                     </button>
