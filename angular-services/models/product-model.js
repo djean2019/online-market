@@ -8,12 +8,6 @@ const product = {
     name: {
         type: String,
         required: true,
-        validate: {
-            validator: name => {
-                return name.length >= 4;
-            },
-            message: props => `${props.value} Validation failed`,
-        },
     },
     imageUrl: {
         type: String,

@@ -17,7 +17,9 @@
                 <mat-card-content>
                     <p>{{ product.description }}</p>
                 </mat-card-content>
-                <mat-card-actions>
+                <input type="hidden" value="{{ product.userId }}" #userid />
+                <input type="hidden" value="{{ currentUser._id }}" #cuid />
+                <mat-card-actions *ngIf="userid.value != cuid.value">
                     <input type="hidden" value="{{ product._id }}" #prodId />
                     <button
                         mat-raised-button
@@ -35,6 +37,9 @@
                     >
                         Buy
                     </button>
+                </mat-card-actions>
+                <mat-card-actions *ngIf="userid.value == cuid.value">
+                    This is your product, you can not buy it!
                 </mat-card-actions>
             </mat-card>
         </mat-grid-tile>

@@ -8,6 +8,7 @@ import { ProductsComponent } from "./seller-builder/components/products/products
 import { AuthGuard } from "./core/services/auth-guard.service";
 import { CartComponent } from "./home-builder/components/cart/cart.component";
 import { AuthComponent } from "./auth/auth.component";
+import { AddProductComponent } from "./seller-builder/components/products/add-product.component";
 
 const routes: Routes = [
     {
@@ -15,16 +16,6 @@ const routes: Routes = [
         component: HomeComponent,
         children: [
             { path: "", component: MainContentComponent },
-            {
-                path: "manageProducts",
-                component: ProductsComponent,
-                canActivate: [AuthGuard],
-            },
-            {
-                path: "manageCart",
-                component: CartComponent,
-                canActivate: [AuthGuard],
-            },
             {
                 path: "login",
                 component: AuthComponent,
@@ -34,6 +25,21 @@ const routes: Routes = [
                 path: "register",
                 component: AuthComponent,
                 canActivate: [NoAuthGuard],
+            },
+            {
+                path: "manageCart",
+                component: CartComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: "addProduct",
+                component: AddProductComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: "manageProducts",
+                component: ProductsComponent,
+                canActivate: [AuthGuard],
             },
         ],
     },

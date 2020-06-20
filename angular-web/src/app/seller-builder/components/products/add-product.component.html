@@ -1,0 +1,61 @@
+<mat-card>
+    <h1 class="text-xs-center title-size">{{ title }}</h1>
+    <app-list-errors [errors]="errors"></app-list-errors>
+    <!-- {{ this.authForm.value | json }} -->
+    <form [formGroup]="authForm" (ngSubmit)="submitForm()" class="form-container">
+        <fieldset [disabled]="isSubmitting" class="fieldset-style">
+            <mat-form-field>
+                <mat-label>ProductName</mat-label>
+                <input matInput formControlName="name" placeholder="Ex. car" type="text" />
+                <mat-error *ngIf="productNameFormControl.hasError('required')">
+                    ProductName is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Price</mat-label>
+                <input matInput formControlName="price" type="text" placeholder="Ex. 100" />
+                <!-- <mat-hint>Please enter valid price</mat-hint> -->
+                <mat-error
+                    *ngIf="
+                        priceFormControl.hasError('price') && !priceFormControl.hasError('required')
+                    "
+                >
+                    Please enter a valid price
+                </mat-error>
+                <mat-error *ngIf="priceFormControl.hasError('required')">
+                    Price is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Description</mat-label>
+                <input
+                    matInput
+                    formControlName="description"
+                    type="text"
+                    placeholder="Ex. this is a car"
+                />
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>ImageUrl</mat-label>
+                <input
+                    matInput
+                    formControlName="imageUrl"
+                    type="text"
+                    placeholder="Ex. https://image/1/car"
+                />
+                <mat-error *ngIf="imageUrlFormControl.hasError('required')">
+                    Price is <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+            <button
+                mat-raised-button
+                color="primary"
+                class="sign-button"
+                [disabled]="!authForm.valid"
+                type="submit"
+            >
+                {{ title }}
+            </button>
+        </fieldset>
+    </form>
+</mat-card>
