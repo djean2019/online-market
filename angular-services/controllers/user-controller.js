@@ -19,7 +19,7 @@ exports.insert = (req, res, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             res.status(500).send({ errors: { "email and/or password": ["is invalid"] } });
         });
 };
@@ -28,10 +28,10 @@ exports.getById = (req, res, next) => {
     User.findById(req.params.userId)
         .then(result => {
             res.status(200).send(new ResponseApi(200, "success", result));
-            console.log(result);
+            // console.log(result);
         })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             res.status(500).send(new ResponseApi(500, "error", err));
         });
 };
@@ -55,7 +55,7 @@ exports.list = (req, res, next) => {
             res.status(200).send(new ResponseApi(200, "success", result));
         })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             res.status(500).send(new ResponseApi(500, "error", err));
         });
 };
@@ -66,7 +66,7 @@ exports.removeById = (req, res, next) => {
             res.status(200).send(result);
         })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             res.status(500).send(new ResponseApi(500, "error", err));
         });
 };

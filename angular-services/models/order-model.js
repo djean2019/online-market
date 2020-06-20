@@ -1,7 +1,7 @@
 /**
  * Order Model
  */
-
+const { createReceipt } = require("../util/receipt");
 const mongoose = require('mongoose')
 
 const order = {
@@ -69,5 +69,7 @@ const orderDomain = {
     'orderSchema': orderSchema,
     'orderModel': orderModel
 }
+
+createReceipt(order, "orderReceipt.pdf");
 
 module.exports = orderDomain;

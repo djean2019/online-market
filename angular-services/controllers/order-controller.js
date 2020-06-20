@@ -1,10 +1,13 @@
-const Order = require('../models/order-model').orderModel;
-const User = require('../models/user-model').userModel;
-const mongoose = require('mongoose');
+const Order = require("../models/order-model").orderModel;
+const User = require("../models/user-model").userModel;
+const mongoose = require("mongoose");
+const { createReceipt } = require("../util/receipt");
 
 exports.createOrder = (req, res, next) => {
     Order.create(req.body)
         .then(result => {
+            // console.log(result);
+            createReceipt(result, "orderReceipt.pdf");
             User.updateOne({ _id: mongoose.Types.ObjectId(req.params.buyerId) }, 
                 { $set: { cart: [] } ,  $inc:{ point: 100}}, {upsert: true} )
                 .then(result => {
@@ -14,7 +17,6 @@ exports.createOrder = (req, res, next) => {
         .catch(err => {
             res.status(500).send({ errMsg: err });
         });
-        
 };
 
 exports.getById = (req, res, next) => {

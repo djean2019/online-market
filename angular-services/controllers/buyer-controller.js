@@ -9,7 +9,7 @@ exports.getById = (req, resp, next) => {
             res.status(200).send(result);
         })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             res.status(500).send({ errMsg: err });
         });
 };
@@ -20,7 +20,7 @@ exports.list = (req, res, next) => {
             res.status(200).send(result);
         })
         .catch(err => {
-            console.log(err);
+            // console.log(err);
             res.status(500).send({ errMsg: err });
         });
 };
@@ -119,13 +119,15 @@ exports.addToCart = async (req, res, next) => {
 };
 
 exports.review = (req, res, next) => {
-    Order.updateOne({_id:mongoose.Types.ObjectId(req.params.orderId)},
-    {$set: {review:req.body.review}}
-    )
-    .then(result => {
-        res.status(200).send(result);
-    })
-    .catch(err => {
-        res.status(500).send({errMsg: err});
-    })
+    User.findById(req.params.buyerId).then(result => {
+        Order.updateOne({_id:mongoose.Types.ObjectId(req.params.orderId)},
+        {$set: {review:req.body.review}}
+        )
+        .then(result => {
+            res.status(200).send(result);
+        })
+        .catch(err => {
+            res.status(500).send({errMsg: err});
+        })
+    });
 }
