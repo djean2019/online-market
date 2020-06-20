@@ -30,10 +30,10 @@ exports.createOrder = (req, res, next) => {
                         address: [
                             {
                               "billing": {
-                                "street": "1000 N 4TH ST",
-                                "city": "FAIRFIELD",
-                                "state": "IA",
-                                "zip": "52557"
+                                "street": "1000 N 4TH ST", // req.body.street
+                                "city": "FAIRFIELD",    // req.body.city
+                                "state": "IA",        // req.body.state
+                                "zip": "52557"           // req.body.zip
                               },
                               "shipping": {
                                 "street": "1000 N 4TH ST",
