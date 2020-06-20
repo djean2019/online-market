@@ -7,6 +7,7 @@ import { NoAuthGuard } from "./auth/no-auth-guard.service";
 import { ProductsComponent } from "./seller-builder/components/products/products.component";
 import { AuthGuard } from "./core/services/auth-guard.service";
 import { CartComponent } from "./home-builder/components/cart/cart.component";
+// import { OrderComponent } from "./home-builder/components/order-d/order-d.component";
 import { AuthComponent } from "./auth/auth.component";
 import { AddProductComponent } from "./seller-builder/components/products/add-product.component";
 import { AdminComponent } from "./home-builder/components/admin/admin.component";
@@ -32,6 +33,11 @@ const routes: Routes = [
                 component: CartComponent,
                 canActivate: [AuthGuard],
             },
+            // {
+            //     path: "manageOrder",
+            //     component: OrderComponent,
+            //     canActivate: [AuthGuard],
+            // },
             {
                 path: "AddProduct",
                 component: AddProductComponent,
