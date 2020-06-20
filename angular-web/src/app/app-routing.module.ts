@@ -10,6 +10,9 @@ import { CartComponent } from "./home-builder/components/cart/cart.component";
 import { AuthComponent } from "./auth/auth.component";
 import { AddProductComponent } from "./seller-builder/components/products/add-product.component";
 import { AdminComponent } from "./home-builder/components/admin/admin.component";
+import { PlaceOrderComponent } from "./buyer-builder/components/order/place-order.component";
+import { OrderDetailComponent } from "./buyer-builder/components/order-detail/order-detail.component";
+import { SellerOrderDetailComponent } from "./buyer-builder/components/seller-order-detail/seller-order-detail.component";
 
 const routes: Routes = [
     {
@@ -50,6 +53,21 @@ const routes: Routes = [
             {
                 path: "manageSellers",
                 component: AdminComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: "placeAnOrder",
+                component: PlaceOrderComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: "manageOrders",
+                component: OrderDetailComponent,
+                canActivate: [AuthGuard],
+            },
+            {
+                path: "manageSellerOrder",
+                component: SellerOrderDetailComponent,
                 canActivate: [AuthGuard],
             },
         ],

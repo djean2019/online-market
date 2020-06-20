@@ -1,7 +1,7 @@
 <mat-card>
     <mat-progress-bar mode="indeterminate" *ngIf="loading"></mat-progress-bar>
     <input type="hidden" value="{{ currentUser.isApprouved }}" #isApprouved />
-    <mat-card class="title-card" *ngIf="!isApprouved.value">
+    <mat-card class="title-card" *ngIf="currentUser.isApprouved">
         <input type="hidden" value="" #prodId />
         <a mat-raised-button color="primary" [routerLink]="['/AddProduct']">
             Add Product

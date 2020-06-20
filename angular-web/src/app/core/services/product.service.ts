@@ -62,6 +62,42 @@ export class ProductService {
         );
     }
 
+    //order
+    placeOrder(buyerId, body): Observable<ApiResponse> {
+        const route = "/orders/" + buyerId;
+        return this.apiService.post(route, body).pipe(
+            map(data => {
+                return data;
+            })
+        );
+    }
+
+    orderList(buyerId): Observable<ApiResponse> {
+        const route = "/orders/buyer/" + buyerId;
+        return this.apiService.get(route).pipe(
+            map(data => {
+                return data;
+            })
+        );
+    }
+
+    cancelOrder(orderId): Observable<ApiResponse> {
+        const route = "/orders/" + orderId;
+        return this.apiService.delete(route).pipe(
+            map(data => {
+                return data;
+            })
+        );
+    }
+    sellerOrderList(userId): Observable<ApiResponse> {
+        const route = "/seller/orders/" + userId;
+        return this.apiService.get(route).pipe(
+            map(data => {
+                return data;
+            })
+        );
+    }
+
     //buyer
     queryCart(buyerId): Observable<ApiResponse> {
         const route = "/buyer/" + buyerId + "/cart";

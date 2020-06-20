@@ -50,7 +50,7 @@ export class CartComponent implements OnInit {
         this.productService.removeAll(this.currentUser._id).subscribe(data => this.runQuery());
     }
 
-    addToCart(prodId) {
+    placeOrder(prodId) {
         this.userService.isAuthenticated
             .pipe(
                 concatMap(authenticated => {
@@ -60,11 +60,7 @@ export class CartComponent implements OnInit {
                         return of(null);
                     }
 
-                    return this.productService.addToCart(this.currentUser._id, prodId).pipe(
-                        tap(data => {
-                            console.log(data);
-                        })
-                    );
+                    this.router.navigateByUrl("/placeAnOrder?id=" + prodId);
                 })
             )
             .subscribe();
