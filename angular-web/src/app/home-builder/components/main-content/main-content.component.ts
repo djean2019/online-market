@@ -38,7 +38,7 @@ export class MainContentComponent implements OnInit {
         });
     }
 
-    addToCart(prodId) {
+    addToCartt(prodId) {
         this.userService.isAuthenticated
             .pipe(
                 concatMap(authenticated => {
@@ -48,11 +48,10 @@ export class MainContentComponent implements OnInit {
                         return of(null);
                     }
 
-                    return this.productService.addToCart(this.currentUser._id, prodId).pipe(
-                        tap(data => {
-                            console.log(data);
-                        })
-                    );
+                    this.productService.addToCart(this.currentUser._id, prodId).subscribe(data => {
+                        console.log(data);
+                        return this.router.navigateByUrl("/manageCart");
+                    });
                 })
             )
             .subscribe(data => this.router.navigateByUrl("/manageCart"));
