@@ -1,24 +1,23 @@
 <mat-card>
     <mat-card class="title-card">
-        <mat-card-actions>
-            <input type="hidden" value="" #prodId />
-            <button mat-raised-button color="primary" (click)="removeAll()">
-                Remove All Products
-            </button>
-            <button mat-raised-button color="primary">
-                Place All Products
-            </button>
-        </mat-card-actions>
+        <input type="hidden" value="" #prodId />
+        <button mat-raised-button color="primary" class="top-button" (click)="removeAll()">
+            Remove All Products
+        </button>
+        <button mat-raised-button color="primary" class="top-button">
+            Place All Products
+        </button>
     </mat-card>
-    <mat-grid-list cols="5" rowHeight="1:2">
-        <div [hidden]="!loading">
-            Loading cart...
-        </div>
 
-        <div [hidden]="loading || results.length">
-            No products are here... yet.
-        </div>
-        <mat-grid-tile class="grid-tile" *ngFor="let cart of results">
+    <div [hidden]="!loading">
+        Loading cart...
+    </div>
+
+    <div [hidden]="loading || results.length">
+        No products are here... yet.
+    </div>
+    <div class="product-container">
+        <div class="grid-tile" *ngFor="let cart of results">
             <mat-card class="grid-card">
                 <mat-card-header>
                     <div mat-card-avatar class="grid-header-image"></div>
@@ -39,6 +38,6 @@
                     </button>
                 </mat-card-actions>
             </mat-card>
-        </mat-grid-tile>
-    </mat-grid-list>
+        </div>
+    </div>
 </mat-card>

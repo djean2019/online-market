@@ -1,15 +1,10 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { Observable, BehaviorSubject, ReplaySubject } from "rxjs";
+import { Observable } from "rxjs";
 
 import { ApiService } from "./api.service";
-import { JwtService } from "./jwt.service";
-import { map, distinctUntilChanged } from "rxjs/operators";
+import { map } from "rxjs/operators";
 import { Product } from "../models/product.modul";
-import { UserService } from "./user.service";
-import { User } from "../models";
 import { ApiResponse } from "../models/api.response";
-import { Router } from "@angular/router";
 
 @Injectable()
 export class ProductService {
@@ -37,6 +32,30 @@ export class ProductService {
     addProduct(product): Observable<ApiResponse> {
         const route = "/seller/products";
         return this.apiService.post(route, product).pipe(
+            map(data => {
+                return data;
+            })
+        );
+    }
+    editProduct(productId, pro): Observable<ApiResponse> {
+        const route = "/seller/editProducts/" + productId;
+        return this.apiService.put(route, pro).pipe(
+            map(data => {
+                return data;
+            })
+        );
+    }
+    deleteProduct(productId): Observable<ApiResponse> {
+        const route = "/seller/deleteProducts/" + productId;
+        return this.apiService.delete(route).pipe(
+            map(data => {
+                return data;
+            })
+        );
+    }
+    getProductById(productId): Observable<Product> {
+        const route = "/seller/products/" + productId;
+        return this.apiService.get(route).pipe(
             map(data => {
                 return data;
             })

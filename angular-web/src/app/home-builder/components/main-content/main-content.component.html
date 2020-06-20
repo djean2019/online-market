@@ -1,22 +1,24 @@
 <mat-card>
-    <mat-grid-list cols="5" rowHeight="1:2">
-        <div [hidden]="!loading">
-            Loading products...
-        </div>
+    <div [hidden]="!loading">
+        Loading products...
+    </div>
 
-        <div [hidden]="loading || results.length">
-            No products are here... yet.
-        </div>
-        <mat-grid-tile class="grid-tile" *ngFor="let product of results">
+    <div [hidden]="loading || results.length">
+        No products are here... yet.
+    </div>
+    <div class="product-container">
+        <div class="grid-tile" *ngFor="let product of results">
             <mat-card class="grid-card">
                 <mat-card-header>
                     <div mat-card-avatar class="grid-header-image"></div>
                     <mat-card-title>{{ product.name }}</mat-card-title>
                 </mat-card-header>
                 <img mat-card-image src="{{ product.imageUrl }}" alt="" />
+
                 <mat-card-content>
                     <p>{{ product.description }}</p>
                 </mat-card-content>
+                <mat-divider></mat-divider>
                 <input type="hidden" value="{{ product.userId }}" #userid />
                 <input type="hidden" value="{{ currentUser._id }}" #cuid />
                 <mat-card-actions *ngIf="userid.value != cuid.value">
@@ -38,10 +40,11 @@
                         Buy
                     </button>
                 </mat-card-actions>
-                <mat-card-actions *ngIf="userid.value == cuid.value">
+                <mat-card-actions *ngIf="userid.value == cuid.value" color="warn">
                     This is your product, you can not buy it!
                 </mat-card-actions>
             </mat-card>
-        </mat-grid-tile>
-    </mat-grid-list>
+            <mat-divider></mat-divider>
+        </div>
+    </div>
 </mat-card>

@@ -34,6 +34,9 @@
                     type="text"
                     placeholder="Ex. this is a car"
                 />
+                <mat-error *ngIf="descriptionFormControl.hasError('required')">
+                    Description is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
             <mat-form-field>
                 <mat-label>ImageUrl</mat-label>
