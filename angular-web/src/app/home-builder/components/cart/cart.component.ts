@@ -50,7 +50,7 @@ export class CartComponent implements OnInit {
         this.productService.removeAll(this.currentUser._id).subscribe(data => this.runQuery());
     }
 
-    placeOrder(prodId) {
+    placeaOrder(prodId) {
         this.userService.isAuthenticated
             .pipe(
                 concatMap(authenticated => {
@@ -61,27 +61,6 @@ export class CartComponent implements OnInit {
                     }
 
                     this.router.navigateByUrl("/placeAnOrder?id=" + prodId);
-                })
-            )
-            .subscribe();
-    }
-
-    placeOrder() {
-        this.userService.isAuthenticated
-            .pipe(
-                concatMap(authenticated => {
-                    // Not authenticated? Push to login screen
-                    if (!authenticated) {
-                        this.router.navigateByUrl("/login");
-                        return of(null);
-                    }
-
-                    return this.productService.placeOrder(this.currentUser._id).pipe(
-                        tap(data => {
-                            // console.log(data);
-                            this.runQuery()
-                        })
-                    );
                 })
             )
             .subscribe();

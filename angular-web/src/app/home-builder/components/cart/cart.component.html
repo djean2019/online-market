@@ -7,7 +7,7 @@
         <button mat-raised-button color="primary" class="top-button" (click)="removeAll()">
             Remove All Products
         </button>
-        <button mat-raised-button color="primary" class="top-button"  (click)=placeOrder()> 
+        <button mat-raised-button color="primary" class="top-button" (click)="placeOrder()">
             Place All Products
         </button>
     </mat-card>
@@ -31,7 +31,7 @@
                 </mat-card-content>
                 <mat-card-actions>
                     <input type="hidden" value="{{ cart.productId }}" #prodId />
-                    <button mat-raised-button color="primary" (click)="placeOrder(prodId.value)">
+                    <button mat-raised-button color="primary" (click)="placeaOrder(prodId.value)">
                         Place Order
                     </button>
                     <button mat-raised-button color="primary" (click)="remove(prodId.value)">
